@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Graph Generator — grafo de citações</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/vendor/cytoscape.min.js"></script>
+  <script src="/static/vendor/layout-base.js"></script>
+  <script src="/static/vendor/cose-base.js"></script>
+  <script src="/static/vendor/cytoscape-fcose.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <form id="seed-form" class="seed">
+    <input id="seed-input" type="text" autocomplete="off" spellcheck="false"
+           placeholder="DOI, link do OpenAlex/arXiv, ou o título do artigo seminal">
+    <button type="submit" id="seed-btn">Buscar</button>
+  </form>
+
+  <div class="params">
+    <label>profundidade
+      <input id="p-depth" type="number" value="2" min="1" max="5">
+    </label>
+    <label>top-N por nó
+      <input id="p-topn" type="number" value="20" min="1" max="200">
+    </label>
+    <label>desde o ano
+      <input id="p-minyear" type="number" placeholder="—" min="1500" max="2100">
+    </label>
+    <label>máx. de nós
+      <input id="p-maxnodes" type="number" value="500" min="1" max="5000">
+    </label>
+  </div>
+
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+</header>
+
+<div id="candidates" class="candidates" hidden>
+  <p class="candidates-hint">Vários artigos batem com essa busca. Qual é o seu seminal?</p>
+  <ul id="candidates-list"></ul>
+  <button type="button" id="candidates-cancel" class="ghost">cancelar</button>
+</div>
+
+<main>
+  <section class="canvas-wrap">
+    <div class="filters">
+      <label>ano ≥ <output id="f-year-out">—</output>
+        <input id="f-year" type="range" disabled>
+      </label>
+      <label>citações ≥ <output id="f-cited-out">—</output>
+        <input id="f-cited" type="range" min="0" max="100" value="0" disabled>
+      </label>
+      <label>agrupar por
+        <select id="f-group">
+          <option value="subfield">subcampo</option>
+          <option value="field">campo</option>
+          <option value="topic">tópico</option>
+        </select>
+      </label>
+      <label>só o grupo
+        <select id="f-topic"><option value="">todos</option></select>
+      </label>
+      <label class="check">
+        <input id="f-hide-discarded" type="checkbox"> esconder descartados
+      </label>
+      <label>colorir por
+        <select id="f-color">
+          <option value="group">grupo</option>
+          <option value="citations">citações (heatmap)</option>
+          <option value="year">ano</option>
+        </select>
+      </label>
+      <label>layout
+        <select id="f-layout">
+          <option value="timeline">linha do tempo (tópico × ano)</option>
+          <option value="radial">radial por nível</option>
+          <option value="fcose">orgânico</option>
+          <option value="layers">camadas</option>
+        </select>
+      </label>
+      <button type="button" id="f-reset" class="ghost small">limpar filtros</button>
+      <span class="spacer"></span>
+      <span id="counts" class="counts"></span>
+    </div>
+
+    <div class="cy-stack">
+      <div id="cy"></div>
+      <div id="tl-overlay" class="tl-overlay" hidden aria-hidden="true"></div>
+    </div>
+
+    <div class="legend" id="legend">
+      <span id="legend-scale"></span>
+      <span class="spacer"></span>
+      <span><i class="dot-sm"></i><i class="dot-lg"></i> nº de citações</span>
+      <span><i class="dot-frontier"></i> não expandido</span>
+      <span><i class="dot-interested"></i> interessa</span>
+    </div>
+  </section>
+
+  <aside id="panel" class="panel">
+    <p class="empty">Cole o artigo seminal acima e clique em <b>Buscar</b>.<br><br>
+      O grafo cresce <em>para frente no tempo</em>: cada seta vem de quem citou.
+      Clique num nó para ver os detalhes e escavar mais um nível.</p>
+  </aside>
+</main>
+
+<script src="/static/panel.js"></script>
+<script src="/static/graph.js"></script>
+</body>
+</html>

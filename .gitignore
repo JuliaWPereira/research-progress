@@ -1,0 +1,39 @@
+# Ambiente virtual
+.venv/
+venv/
+env/
+
+# Bytecode e cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Empacotamento / instalação editável
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Cache de ferramentas
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# O grafo é dado local, não código: cada investigação tem o seu, cresce com o uso
+# e é reconstruível a partir do artigo seminal. Ver GRAPH_DB no README.
+graph.db
+*.db
+*.db-journal
+*.sqlite3
+
+# Editores e SO
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini

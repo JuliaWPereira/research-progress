@@ -1,0 +1,3879 @@
+{
+ "meta": {
+  "count": 525,
+  "db_response_time_ms": 18,
+  "page": 1,
+  "per_page": 3,
+  "groups_count": null,
+  "x_query": {
+   "oql": "works where date >= (2023-01-01) and it cites (W2741809807)",
+   "oqo": {
+    "get_rows": "works",
+    "filter_rows": [
+     {
+      "column_id": "from_publication_date",
+      "value": "2023-01-01"
+     },
+     {
+      "column_id": "referenced_works",
+      "value": "W2741809807"
+     }
+    ]
+   },
+   "url": "/works?filter=from_publication_date:2023-01-01,referenced_works:W2741809807&per_page=3"
+  },
+  "cost_usd": 0.0001
+ },
+ "results": [
+  {
+   "id": "https://openalex.org/W4389216323",
+   "doi": "https://doi.org/10.1016/j.autcon.2023.105212",
+   "title": "Digital technologies in architecture, engineering, and construction",
+   "display_name": "Digital technologies in architecture, engineering, and construction",
+   "publication_year": 2023,
+   "publication_date": "2023-11-30",
+   "ids": {
+    "openalex": "https://openalex.org/W4389216323",
+    "doi": "https://doi.org/10.1016/j.autcon.2023.105212"
+   },
+   "language": "en",
+   "primary_location": {
+    "id": "doi:10.1016/j.autcon.2023.105212",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1016/j.autcon.2023.105212",
+    "pdf_url": null,
+    "source": {
+     "id": "https://openalex.org/S172073041",
+     "display_name": "Automation in Construction",
+     "issn_l": "0926-5805",
+     "issn": [
+      "0926-5805",
+      "1872-7891"
+     ],
+     "is_oa": false,
+     "is_in_doaj": false,
+     "is_core": true,
+     "host_organization": "https://openalex.org/P4310320990",
+     "host_organization_name": "Elsevier BV",
+     "host_organization_lineage": [
+      "https://openalex.org/P4310320990"
+     ],
+     "host_organization_lineage_names": [
+      "Elsevier BV"
+     ],
+     "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Automation in Construction",
+    "raw_type": "journal-article"
+   },
+   "type": "article",
+   "indexed_in": [
+    "crossref"
+   ],
+   "open_access": {
+    "is_oa": true,
+    "oa_status": "hybrid",
+    "oa_url": "https://doi.org/10.1016/j.autcon.2023.105212",
+    "any_repository_has_fulltext": true
+   },
+   "authorships": [
+    {
+     "author_position": "first",
+     "author": {
+      "id": "https://openalex.org/A5008979198",
+      "display_name": "Johannes Brozovsky",
+      "orcid": "https://orcid.org/0000-0001-5485-1431"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I173888879",
+       "display_name": "SINTEF",
+       "ror": "https://ror.org/01f677e56",
+       "country_code": "NO",
+       "type": "facility",
+       "lineage": [
+        "https://openalex.org/I173888879"
+       ]
+      },
+      {
+       "id": "https://openalex.org/I4387930280",
+       "display_name": "SINTEF Community",
+       "ror": "https://ror.org/01zj15q98",
+       "country_code": null,
+       "type": "facility",
+       "lineage": [
+        "https://openalex.org/I173888879",
+        "https://openalex.org/I4387930280"
+       ]
+      }
+     ],
+     "countries": [
+      "NO"
+     ],
+     "is_corresponding": true,
+     "raw_author_name": "Johannes Brozovsky",
+     "raw_affiliation_strings": [
+      "Architecture, Materials and Structures, SINTEF Community, 7034 Trondheim, Norway"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Architecture, Materials and Structures, SINTEF Community, 7034 Trondheim, Norway",
+       "institution_ids": [
+        "https://openalex.org/I173888879",
+        "https://openalex.org/I4387930280"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5040854557",
+      "display_name": "Nathalie Labonnote",
+      "orcid": "https://orcid.org/0000-0001-6790-4109"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I173888879",
+       "display_name": "SINTEF",
+       "ror": "https://ror.org/01f677e56",
+       "country_code": "NO",
+       "type": "facility",
+       "lineage": [
+        "https://openalex.org/I173888879"
+       ]
+      },
+      {
+       "id": "https://openalex.org/I4387930280",
+       "display_name": "SINTEF Community",
+       "ror": "https://ror.org/01zj15q98",
+       "country_code": null,
+       "type": "facility",
+       "lineage": [
+        "https://openalex.org/I173888879",
+        "https://openalex.org/I4387930280"
+       ]
+      }
+     ],
+     "countries": [
+      "NO"
+     ],
+     "is_corresponding": false,
+     "raw_author_name": "Nathalie Labonnote",
+     "raw_affiliation_strings": [
+      "Architecture, Materials and Structures, SINTEF Community, 7034 Trondheim, Norway"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Architecture, Materials and Structures, SINTEF Community, 7034 Trondheim, Norway",
+       "institution_ids": [
+        "https://openalex.org/I173888879",
+        "https://openalex.org/I4387930280"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "last",
+     "author": {
+      "id": "https://openalex.org/A5002299556",
+      "display_name": "Olli Vigren",
+      "orcid": "https://orcid.org/0000-0001-7559-4761"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I86987016",
+       "display_name": "KTH Royal Institute of Technology",
+       "ror": "https://ror.org/026vcq606",
+       "country_code": "SE",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I86987016"
+       ]
+      }
+     ],
+     "countries": [
+      "SE"
+     ],
+     "is_corresponding": false,
+     "raw_author_name": "Olli Vigren",
+     "raw_affiliation_strings": [
+      "School of Architecture and the Built Environment, KTH Royal Institute of Technology, Stockholm, Sweden"
+     ],
+     "raw_orcid": null,
+     "affiliations": [
+      {
+       "raw_affiliation_string": "School of Architecture and the Built Environment, KTH Royal Institute of Technology, Stockholm, Sweden",
+       "institution_ids": [
+        "https://openalex.org/I86987016"
+       ]
+      }
+     ]
+    }
+   ],
+   "institutions": [],
+   "countries_distinct_count": 2,
+   "institutions_distinct_count": 3,
+   "corresponding_author_ids": [
+    "https://openalex.org/A5008979198"
+   ],
+   "corresponding_institution_ids": [
+    "https://openalex.org/I173888879",
+    "https://openalex.org/I4387930280"
+   ],
+   "apc_list": {
+    "value": 5490,
+    "currency": "USD",
+    "value_usd": 5490
+   },
+   "apc_paid": {
+    "value": 5490,
+    "currency": "USD",
+    "value_usd": 5490
+   },
+   "fwci": 14.319,
+   "has_fulltext": false,
+   "cited_by_count": 128,
+   "citation_normalized_percentile": {
+    "value": 0.99737487,
+    "is_in_top_1_percent": true,
+    "is_in_top_10_percent": true
+   },
+   "cited_by_percentile_year": {
+    "min": 99,
+    "max": 100
+   },
+   "biblio": {
+    "volume": "158",
+    "issue": null,
+    "first_page": "105212",
+    "last_page": "105212"
+   },
+   "is_retracted": false,
+   "is_paratext": false,
+   "is_xpac": false,
+   "primary_topic": {
+    "id": "https://openalex.org/T11006",
+    "display_name": "BIM and Construction Integration",
+    "score": 0.9991000294685364,
+    "subfield": {
+     "id": "https://openalex.org/subfields/2215",
+     "display_name": "Building and Construction"
+    },
+    "field": {
+     "id": "https://openalex.org/fields/22",
+     "display_name": "Engineering"
+    },
+    "domain": {
+     "id": "https://openalex.org/domains/3",
+     "display_name": "Physical Sciences"
+    }
+   },
+   "topics": [
+    {
+     "id": "https://openalex.org/T11006",
+     "display_name": "BIM and Construction Integration",
+     "score": 0.9991000294685364,
+     "subfield": {
+      "id": "https://openalex.org/subfields/2215",
+      "display_name": "Building and Construction"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/22",
+      "display_name": "Engineering"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+     }
+    },
+    {
+     "id": "https://openalex.org/T11211",
+     "display_name": "3D Surveying and Cultural Heritage",
+     "score": 0.9988999962806702,
+     "subfield": {
+      "id": "https://openalex.org/subfields/1907",
+      "display_name": "Geology"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/19",
+      "display_name": "Earth and Planetary Sciences"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+     }
+    },
+    {
+     "id": "https://openalex.org/T12190",
+     "display_name": "Innovations in Concrete and Construction Materials",
+     "score": 0.9696000218391418,
+     "subfield": {
+      "id": "https://openalex.org/subfields/2215",
+      "display_name": "Building and Construction"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/22",
+      "display_name": "Engineering"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/3",
+      "display_name": "Physical Sciences"
+     }
+    }
+   ],
+   "keywords": [
+    {
+     "id": "https://openalex.org/keywords/architecture",
+     "display_name": "Architecture",
+     "score": 0.6429547667503357
+    },
+    {
+     "id": "https://openalex.org/keywords/engineering",
+     "display_name": "Engineering",
+     "score": 0.5140553712844849
+    },
+    {
+     "id": "https://openalex.org/keywords/engineering-management",
+     "display_name": "Engineering management",
+     "score": 0.484362930059433
+    },
+    {
+     "id": "https://openalex.org/keywords/emerging-technologies",
+     "display_name": "Emerging technologies",
+     "score": 0.4594925045967102
+    },
+    {
+     "id": "https://openalex.org/keywords/the-internet",
+     "display_name": "The Internet",
+     "score": 0.44832155108451843
+    },
+    {
+     "id": "https://openalex.org/keywords/scopus",
+     "display_name": "Scopus",
+     "score": 0.4407412111759186
+    },
+    {
+     "id": "https://openalex.org/keywords/technology-roadmap",
+     "display_name": "Technology roadmap",
+     "score": 0.4107387363910675
+    },
+    {
+     "id": "https://openalex.org/keywords/data-science",
+     "display_name": "Data science",
+     "score": 0.38619428873062134
+    },
+    {
+     "id": "https://openalex.org/keywords/knowledge-management",
+     "display_name": "Knowledge management",
+     "score": 0.3244209885597229
+    },
+    {
+     "id": "https://openalex.org/keywords/computer-science",
+     "display_name": "Computer science",
+     "score": 0.3213050365447998
+    },
+    {
+     "id": "https://openalex.org/keywords/world-wide-web",
+     "display_name": "World Wide Web",
+     "score": 0.21357446908950806
+    },
+    {
+     "id": "https://openalex.org/keywords/business",
+     "display_name": "Business",
+     "score": 0.1733303964138031
+    },
+    {
+     "id": "https://openalex.org/keywords/marketing",
+     "display_name": "Marketing",
+     "score": 0.12408915162086487
+    }
+   ],
+   "concepts": [
+    {
+     "id": "https://openalex.org/C123657996",
+     "wikidata": "https://www.wikidata.org/wiki/Q12271",
+     "display_name": "Architecture",
+     "level": 2,
+     "score": 0.6429547667503357
+    },
+    {
+     "id": "https://openalex.org/C127413603",
+     "wikidata": "https://www.wikidata.org/wiki/Q11023",
+     "display_name": "Engineering",
+     "level": 0,
+     "score": 0.5140553712844849
+    },
+    {
+     "id": "https://openalex.org/C110354214",
+     "wikidata": "https://www.wikidata.org/wiki/Q6314146",
+     "display_name": "Engineering management",
+     "level": 1,
+     "score": 0.484362930059433
+    },
+    {
+     "id": "https://openalex.org/C207267971",
+     "wikidata": "https://www.wikidata.org/wiki/Q120208",
+     "display_name": "Emerging technologies",
+     "level": 2,
+     "score": 0.4594925045967102
+    },
+    {
+     "id": "https://openalex.org/C110875604",
+     "wikidata": "https://www.wikidata.org/wiki/Q75",
+     "display_name": "The Internet",
+     "level": 2,
+     "score": 0.44832155108451843
+    },
+    {
+     "id": "https://openalex.org/C83867959",
+     "wikidata": "https://www.wikidata.org/wiki/Q371467",
+     "display_name": "Scopus",
+     "level": 3,
+     "score": 0.4407412111759186
+    },
+    {
+     "id": "https://openalex.org/C2780156850",
+     "wikidata": "https://www.wikidata.org/wiki/Q2144097",
+     "display_name": "Technology roadmap",
+     "level": 2,
+     "score": 0.4107387363910675
+    },
+    {
+     "id": "https://openalex.org/C2522767166",
+     "wikidata": "https://www.wikidata.org/wiki/Q2374463",
+     "display_name": "Data science",
+     "level": 1,
+     "score": 0.38619428873062134
+    },
+    {
+     "id": "https://openalex.org/C56739046",
+     "wikidata": "https://www.wikidata.org/wiki/Q192060",
+     "display_name": "Knowledge management",
+     "level": 1,
+     "score": 0.3244209885597229
+    },
+    {
+     "id": "https://openalex.org/C41008148",
+     "wikidata": "https://www.wikidata.org/wiki/Q21198",
+     "display_name": "Computer science",
+     "level": 0,
+     "score": 0.3213050365447998
+    },
+    {
+     "id": "https://openalex.org/C136764020",
+     "wikidata": "https://www.wikidata.org/wiki/Q466",
+     "display_name": "World Wide Web",
+     "level": 1,
+     "score": 0.21357446908950806
+    },
+    {
+     "id": "https://openalex.org/C144133560",
+     "wikidata": "https://www.wikidata.org/wiki/Q4830453",
+     "display_name": "Business",
+     "level": 0,
+     "score": 0.1733303964138031
+    },
+    {
+     "id": "https://openalex.org/C162853370",
+     "wikidata": "https://www.wikidata.org/wiki/Q39809",
+     "display_name": "Marketing",
+     "level": 1,
+     "score": 0.12408915162086487
+    },
+    {
+     "id": "https://openalex.org/C153349607",
+     "wikidata": "https://www.wikidata.org/wiki/Q36649",
+     "display_name": "Visual arts",
+     "level": 1,
+     "score": 0.0
+    },
+    {
+     "id": "https://openalex.org/C154945302",
+     "wikidata": "https://www.wikidata.org/wiki/Q11660",
+     "display_name": "Artificial intelligence",
+     "level": 1,
+     "score": 0.0
+    },
+    {
+     "id": "https://openalex.org/C142362112",
+     "wikidata": "https://www.wikidata.org/wiki/Q735",
+     "display_name": "Art",
+     "level": 0,
+     "score": 0.0
+    },
+    {
+     "id": "https://openalex.org/C17744445",
+     "wikidata": "https://www.wikidata.org/wiki/Q36442",
+     "display_name": "Political science",
+     "level": 0,
+     "score": 0.0
+    },
+    {
+     "id": "https://openalex.org/C2779473830",
+     "wikidata": "https://www.wikidata.org/wiki/Q1540899",
+     "display_name": "MEDLINE",
+     "level": 2,
+     "score": 0.0
+    },
+    {
+     "id": "https://openalex.org/C199539241",
+     "wikidata": "https://www.wikidata.org/wiki/Q7748",
+     "display_name": "Law",
+     "level": 1,
+     "score": 0.0
+    }
+   ],
+   "mesh": [],
+   "locations_count": 4,
+   "locations": [
+    {
+     "id": "doi:10.1016/j.autcon.2023.105212",
+     "is_oa": true,
+     "landing_page_url": "https://doi.org/10.1016/j.autcon.2023.105212",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S172073041",
+      "display_name": "Automation in Construction",
+      "issn_l": "0926-5805",
+      "issn": [
+       "0926-5805",
+       "1872-7891"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "host_organization": "https://openalex.org/P4310320990",
+      "host_organization_name": "Elsevier BV",
+      "host_organization_lineage": [
+       "https://openalex.org/P4310320990"
+      ],
+      "host_organization_lineage_names": [
+       "Elsevier BV"
+      ],
+      "type": "journal"
+     },
+     "license": "cc-by",
+     "license_id": "https://openalex.org/licenses/cc-by",
+     "version": "publishedVersion",
+     "is_accepted": true,
+     "is_published": true,
+     "raw_source_name": "Automation in Construction",
+     "raw_type": "journal-article"
+    },
+    {
+     "id": "doi:10.2139/ssrn.7028158",
+     "is_oa": true,
+     "landing_page_url": "https://doi.org/10.2139/ssrn.7028158",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S4210172589",
+      "display_name": "SSRN Electronic Journal",
+      "issn_l": "1556-5068",
+      "issn": [
+       "1556-5068"
+      ],
+      "is_oa": true,
+      "is_in_doaj": false,
+      "is_core": false,
+      "host_organization": "https://openalex.org/I1318003438",
+      "host_organization_name": "RELX Group (Netherlands)",
+      "host_organization_lineage": [
+       "https://openalex.org/I1318003438"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": null,
+     "license_id": null,
+     "version": "acceptedVersion",
+     "is_accepted": true,
+     "is_published": false,
+     "raw_source_name": null,
+     "raw_type": "posted-content"
+    },
+    {
+     "id": "pmh:oai:DiVA.org:kth-340782",
+     "is_oa": true,
+     "landing_page_url": "http://urn.kb.se/resolve?urn=urn:nbn:se:kth:diva-340782",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S4306401559",
+      "display_name": "KTH Publication Database DiVA (KTH Royal Institute of Technology)",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "host_organization": "https://openalex.org/I86987016",
+      "host_organization_name": "KTH Royal Institute of Technology",
+      "host_organization_lineage": [
+       "https://openalex.org/I86987016"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": "other-oa",
+     "license_id": "https://openalex.org/licenses/other-oa",
+     "version": "submittedVersion",
+     "is_accepted": false,
+     "is_published": false,
+     "raw_source_name": null,
+     "raw_type": "info:eu-repo/semantics/article"
+    },
+    {
+     "id": "pmh:oai:sintef.brage.unit.no:11250/3106761",
+     "is_oa": true,
+     "landing_page_url": "https://hdl.handle.net/11250/3106761",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S4306401716",
+      "display_name": "Duo Research Archive (University of Oslo)",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "host_organization": "https://openalex.org/I184942183",
+      "host_organization_name": "University of Oslo",
+      "host_organization_lineage": [
+       "https://openalex.org/I184942183"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": "cc-by",
+     "license_id": "https://openalex.org/licenses/cc-by",
+     "version": "submittedVersion",
+     "is_accepted": false,
+     "is_published": false,
+     "raw_source_name": "158",
+     "raw_type": "info:eu-repo/semantics/article"
+    }
+   ],
+   "best_oa_location": {
+    "id": "doi:10.1016/j.autcon.2023.105212",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1016/j.autcon.2023.105212",
+    "pdf_url": null,
+    "source": {
+     "id": "https://openalex.org/S172073041",
+     "display_name": "Automation in Construction",
+     "issn_l": "0926-5805",
+     "issn": [
+      "0926-5805",
+      "1872-7891"
+     ],
+     "is_oa": false,
+     "is_in_doaj": false,
+     "is_core": true,
+     "host_organization": "https://openalex.org/P4310320990",
+     "host_organization_name": "Elsevier BV",
+     "host_organization_lineage": [
+      "https://openalex.org/P4310320990"
+     ],
+     "host_organization_lineage_names": [
+      "Elsevier BV"
+     ],
+     "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Automation in Construction",
+    "raw_type": "journal-article"
+   },
+   "sustainable_development_goals": [
+    {
+     "score": 0.6499999761581421,
+     "display_name": "Industry, innovation and infrastructure",
+     "id": "https://metadata.un.org/sdg/9"
+    }
+   ],
+   "awards": [],
+   "funders": [],
+   "has_content": {
+    "pdf": false,
+    "grobid_xml": false
+   },
+   "content_urls": null,
+   "referenced_works_count": 61,
+   "referenced_works": [
+    "https://openalex.org/W762129930",
+    "https://openalex.org/W1991984190",
+    "https://openalex.org/W2017396732",
+    "https://openalex.org/W2053331055",
+    "https://openalex.org/W2070001707",
+    "https://openalex.org/W2071381354",
+    "https://openalex.org/W2072712497",
+    "https://openalex.org/W2073653752",
+    "https://openalex.org/W2079283960",
+    "https://openalex.org/W2091229651",
+    "https://openalex.org/W2104143012",
+    "https://openalex.org/W2104520181",
+    "https://openalex.org/W2121434806",
+    "https://openalex.org/W2124713825",
+    "https://openalex.org/W2132698877",
+    "https://openalex.org/W2261406464",
+    "https://openalex.org/W2482629727",
+    "https://openalex.org/W2503299386",
+    "https://openalex.org/W2557455222",
+    "https://openalex.org/W2607075461",
+    "https://openalex.org/W2623713843",
+    "https://openalex.org/W2741809807",
+    "https://openalex.org/W2753266903",
+    "https://openalex.org/W2761350709",
+    "https://openalex.org/W2765538283",
+    "https://openalex.org/W2770233082",
+    "https://openalex.org/W2807541197",
+    "https://openalex.org/W2901669506",
+    "https://openalex.org/W2938884193",
+    "https://openalex.org/W2945838180",
+    "https://openalex.org/W2968770299",
+    "https://openalex.org/W2974072909",
+    "https://openalex.org/W3028051068",
+    "https://openalex.org/W3067206834",
+    "https://openalex.org/W3088327179",
+    "https://openalex.org/W3091193326",
+    "https://openalex.org/W3092145408",
+    "https://openalex.org/W3109259686",
+    "https://openalex.org/W3134126870",
+    "https://openalex.org/W3135048692",
+    "https://openalex.org/W3163698194",
+    "https://openalex.org/W3185412439",
+    "https://openalex.org/W3192121473",
+    "https://openalex.org/W3206057571",
+    "https://openalex.org/W3215338909",
+    "https://openalex.org/W4205098706",
+    "https://openalex.org/W4205606160",
+    "https://openalex.org/W4214836368",
+    "https://openalex.org/W4283591250",
+    "https://openalex.org/W4309623572",
+    "https://openalex.org/W4311689464",
+    "https://openalex.org/W4327621725",
+    "https://openalex.org/W4327949062",
+    "https://openalex.org/W4400907212",
+    "https://openalex.org/W6772311661",
+    "https://openalex.org/W6777702482",
+    "https://openalex.org/W6781710121",
+    "https://openalex.org/W6804972159",
+    "https://openalex.org/W6805701402",
+    "https://openalex.org/W6805702256",
+    "https://openalex.org/W6806024616"
+   ],
+   "related_works": [
+    "https://openalex.org/W2748952813",
+    "https://openalex.org/W4389095033",
+    "https://openalex.org/W3140300071",
+    "https://openalex.org/W4233273178",
+    "https://openalex.org/W2552566180",
+    "https://openalex.org/W4380081217",
+    "https://openalex.org/W4210604288",
+    "https://openalex.org/W2018488738",
+    "https://openalex.org/W2120516750",
+    "https://openalex.org/W2929041020"
+   ],
+   "abstract_inverted_index": {
+    "Digitalization": [
+     0
+    ],
+    "in": [
+     1,
+     15,
+     32,
+     70,
+     116,
+     137
+    ],
+    "the": [
+     2,
+     27,
+     33,
+     39,
+     52,
+     71,
+     84,
+     104,
+     113,
+     143
+    ],
+    "architecture,": [
+     3
+    ],
+    "engineering,": [
+     4
+    ],
+    "and": [
+     5,
+     67,
+     92,
+     103,
+     139
+    ],
+    "construction": [
+     6
+    ],
+    "(AEC)": [
+     7
+    ],
+    "sector": [
+     8
+    ],
+    "is": [
+     9,
+     145
+    ],
+    "slow": [
+     10
+    ],
+    "due": [
+     11
+    ],
+    "to": [
+     12,
+     21,
+     129
+    ],
+    "significant": [
+     13
+    ],
+    "challenges": [
+     14
+    ],
+    "technology": [
+     16,
+     23
+    ],
+    "adoption.": [
+     17
+    ],
+    "The": [
+     18,
+     74
+    ],
+    "study": [
+     19
+    ],
+    "aims": [
+     20
+    ],
+    "promote": [
+     22
+    ],
+    "adoption": [
+     24
+    ],
+    "by": [
+     25
+    ],
+    "advancing": [
+     26
+    ],
+    "understanding": [
+     28
+    ],
+    "of": [
+     29,
+     59,
+     94
+    ],
+    "digital": [
+     30
+    ],
+    "technologies": [
+     31,
+     136
+    ],
+    "AEC": [
+     34,
+     72
+    ],
+    "sector.": [
+     35
+    ],
+    "This": [
+     36
+    ],
+    "article": [
+     37
+    ],
+    "presents": [
+     38
+    ],
+    "findings": [
+     40
+    ],
+    "from": [
+     41,
+     51
+    ],
+    "a": [
+     42,
+     56,
+     131
+    ],
+    "quantitative": [
+     43
+    ],
+    "scoping": [
+     44
+    ],
+    "review,": [
+     45
+    ],
+    "encompassing": [
+     46
+    ],
+    "3950": [
+     47
+    ],
+    "technology-related": [
+     48
+    ],
+    "abstracts": [
+     49
+    ],
+    "retrieved": [
+     50
+    ],
+    "Scopus": [
+     53
+    ],
+    "database,": [
+     54
+    ],
+    "providing": [
+     55
+    ],
+    "preliminary": [
+     57
+    ],
+    "assessment": [
+     58
+    ],
+    "literature": [
+     60
+    ],
+    "size,": [
+     61
+    ],
+    "geographic": [
+     62
+    ],
+    "innovation": [
+     63
+    ],
+    "hotspots,": [
+     64
+    ],
+    "research": [
+     65,
+     110
+    ],
+    "gaps,": [
+     66
+    ],
+    "key": [
+     68
+    ],
+    "concepts": [
+     69
+    ],
+    "field.": [
+     73
+    ],
+    "results": [
+     75
+    ],
+    "show": [
+     76
+    ],
+    "that": [
+     77
+    ],
+    "Building": [
+     78
+    ],
+    "Information": [
+     79
+    ],
+    "Modelling": [
+     80
+    ],
+    "(1852": [
+     81
+    ],
+    "studies)": [
+     82
+    ],
+    "dominates": [
+     83
+    ],
+    "literature,": [
+     85
+    ],
+    "while": [
+     86
+    ],
+    "topics": [
+     87
+    ],
+    "like": [
+     88
+    ],
+    "3D": [
+     89
+    ],
+    "Printing": [
+     90
+    ],
+    "(311)": [
+     91
+    ],
+    "Internet": [
+     93
+    ],
+    "Things": [
+     95
+    ],
+    "(227)": [
+     96
+    ],
+    "are": [
+     97
+    ],
+    "gaining": [
+     98
+    ],
+    "traction.": [
+     99
+    ],
+    "China": [
+     100
+    ],
+    "(687": [
+     101
+    ],
+    "publications)": [
+     102
+    ],
+    "United": [
+     105
+    ],
+    "States": [
+     106
+    ],
+    "(566)": [
+     107
+    ],
+    "produce": [
+     108
+    ],
+    "most": [
+     109
+    ],
+    "articles.": [
+     111
+    ],
+    "Despite": [
+     112
+    ],
+    "increasing": [
+     114
+    ],
+    "interest": [
+     115
+    ],
+    "emerging": [
+     117
+    ],
+    "technologies,": [
+     118
+    ],
+    "their": [
+     119
+    ],
+    "implementation": [
+     120
+    ],
+    "often": [
+     121
+    ],
+    "necessitates": [
+     122
+    ],
+    "acquiring": [
+     123
+    ],
+    "specific": [
+     124
+    ],
+    "skill": [
+     125
+    ],
+    "sets.": [
+     126
+    ],
+    "Academia": [
+     127
+    ],
+    "needs": [
+     128
+    ],
+    "put": [
+     130
+    ],
+    "stronger": [
+     132
+    ],
+    "focus": [
+     133
+    ],
+    "on": [
+     134
+    ],
+    "these": [
+     135
+    ],
+    "education": [
+     138
+    ],
+    "tighter": [
+     140
+    ],
+    "collaboration": [
+     141
+    ],
+    "with": [
+     142
+    ],
+    "industry": [
+     144
+    ],
+    "needed.": [
+     146
+    ]
+   },
+   "counts_by_year": [
+    {
+     "year": 2026,
+     "cited_by_count": 40
+    },
+    {
+     "year": 2025,
+     "cited_by_count": 63
+    },
+    {
+     "year": 2024,
+     "cited_by_count": 25
+    }
+   ],
+   "updated_date": "2026-08-21T09:56:20.448147",
+   "created_date": "2025-10-10T00:00:00"
+  },
+  {
+   "id": "https://openalex.org/W4388465513",
+   "doi": "https://doi.org/10.1162/qss_a_00272",
+   "title": "The oligopoly’s shift to open access: How the big five academic publishers profit from article processing charges",
+   "display_name": "The oligopoly’s shift to open access: How the big five academic publishers profit from article processing charges",
+   "publication_year": 2023,
+   "publication_date": "2023-01-01",
+   "ids": {
+    "openalex": "https://openalex.org/W4388465513",
+    "doi": "https://doi.org/10.1162/qss_a_00272"
+   },
+   "language": "en",
+   "primary_location": {
+    "id": "doi:10.1162/qss_a_00272",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1162/qss_a_00272",
+    "pdf_url": "https://direct.mit.edu/qss/article-pdf/doi/10.1162/qss_a_00272/2172290/qss_a_00272.pdf",
+    "source": {
+     "id": "https://openalex.org/S4210195326",
+     "display_name": "Quantitative Science Studies",
+     "issn_l": "2641-3337",
+     "issn": [
+      "2641-3337"
+     ],
+     "is_oa": true,
+     "is_in_doaj": true,
+     "is_core": true,
+     "host_organization": "https://openalex.org/P4310315718",
+     "host_organization_name": "The MIT Press",
+     "host_organization_lineage": [
+      "https://openalex.org/P4310315718",
+      "https://openalex.org/P4310316440"
+     ],
+     "host_organization_lineage_names": [
+      "The MIT Press",
+      "Massachusetts Institute of Technology"
+     ],
+     "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Quantitative Science Studies",
+    "raw_type": "journal-article"
+   },
+   "type": "article",
+   "indexed_in": [
+    "crossref",
+    "datacite",
+    "doaj"
+   ],
+   "open_access": {
+    "is_oa": true,
+    "oa_status": "gold",
+    "oa_url": "https://direct.mit.edu/qss/article-pdf/doi/10.1162/qss_a_00272/2172290/qss_a_00272.pdf",
+    "any_repository_has_fulltext": true
+   },
+   "authorships": [
+    {
+     "author_position": "first",
+     "author": {
+      "id": "https://openalex.org/A5065574041",
+      "display_name": "Leigh-Ann Butler",
+      "orcid": "https://orcid.org/0000-0002-3385-4729"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I153718931",
+       "display_name": "University of Ottawa",
+       "ror": "https://ror.org/03c4mmv16",
+       "country_code": "CA",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I153718931"
+       ]
+      }
+     ],
+     "countries": [
+      "CA"
+     ],
+     "is_corresponding": false,
+     "raw_author_name": "Leigh-Ann Butler",
+     "raw_affiliation_strings": [
+      "Scholarly Communications Lab, Ottawa/Vancouver, Canada",
+      "School of Information Studies, University of Ottawa, Ottawa, Canada",
+      "Scholarly Communications Lab, Ottawa/Vancouver (Canada)",
+      "School of Information Studies, University of Ottawa, Ottawa (Canada)"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0002-3385-4729",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Scholarly Communications Lab, Ottawa/Vancouver, Canada",
+       "institution_ids": []
+      },
+      {
+       "raw_affiliation_string": "School of Information Studies, University of Ottawa, Ottawa, Canada",
+       "institution_ids": [
+        "https://openalex.org/I153718931"
+       ]
+      },
+      {
+       "raw_affiliation_string": "Scholarly Communications Lab, Ottawa/Vancouver (Canada)",
+       "institution_ids": []
+      },
+      {
+       "raw_affiliation_string": "School of Information Studies, University of Ottawa, Ottawa (Canada)",
+       "institution_ids": [
+        "https://openalex.org/I153718931"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5066880338",
+      "display_name": "Lisa Matthias",
+      "orcid": "https://orcid.org/0000-0002-2612-2132"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I75951250",
+       "display_name": "Freie Universität Berlin",
+       "ror": "https://ror.org/046ak2485",
+       "country_code": "DE",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I75951250"
+       ]
+      }
+     ],
+     "countries": [
+      "DE"
+     ],
+     "is_corresponding": false,
+     "raw_author_name": "Lisa Matthias",
+     "raw_affiliation_strings": [
+      "Political Sciences Department, John F. Kennedy Institute, Freie Universität Berlin, Berlin, Germany",
+      "Scholarly Communications Lab, Ottawa/Vancouver, Canada",
+      "Scholarly Communications Lab, Ottawa/Vancouver (Canada)"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0002-2612-2132",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Political Sciences Department, John F. Kennedy Institute, Freie Universität Berlin, Berlin, Germany",
+       "institution_ids": [
+        "https://openalex.org/I75951250"
+       ]
+      },
+      {
+       "raw_affiliation_string": "Scholarly Communications Lab, Ottawa/Vancouver, Canada",
+       "institution_ids": []
+      },
+      {
+       "raw_affiliation_string": "Scholarly Communications Lab, Ottawa/Vancouver (Canada)",
+       "institution_ids": []
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5046272185",
+      "display_name": "Marc‐André Simard",
+      "orcid": "https://orcid.org/0000-0003-3795-0053"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I159129438",
+       "display_name": "Université du Québec à Montréal",
+       "ror": "https://ror.org/002rjbv21",
+       "country_code": "CA",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I159129438",
+        "https://openalex.org/I49663120"
+       ]
+      },
+      {
+       "id": "https://openalex.org/I70931966",
+       "display_name": "Université de Montréal",
+       "ror": "https://ror.org/0161xgx34",
+       "country_code": "CA",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I70931966"
+       ]
+      }
+     ],
+     "countries": [
+      "CA"
+     ],
+     "is_corresponding": false,
+     "raw_author_name": "Marc-André Simard",
+     "raw_affiliation_strings": [
+      "Centre interuniversitaire de recherche sur la science et la technologie (CIRST), Université du Québec à Montréal, Montréal, Canada",
+      "École de bibliothéconomie et des sciences de l’information, Université de Montréal, Montréal, Canada"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0003-3795-0053",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Centre interuniversitaire de recherche sur la science et la technologie (CIRST), Université du Québec à Montréal, Montréal, Canada",
+       "institution_ids": [
+        "https://openalex.org/I159129438"
+       ]
+      },
+      {
+       "raw_affiliation_string": "École de bibliothéconomie et des sciences de l’information, Université de Montréal, Montréal, Canada",
+       "institution_ids": [
+        "https://openalex.org/I70931966"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5081963935",
+      "display_name": "Philippe Mongeon",
+      "orcid": "https://orcid.org/0000-0003-1021-059X"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I129902397",
+       "display_name": "Dalhousie University",
+       "ror": "https://ror.org/01e6qks80",
+       "country_code": "CA",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I129902397"
+       ]
+      },
+      {
+       "id": "https://openalex.org/I159129438",
+       "display_name": "Université du Québec à Montréal",
+       "ror": "https://ror.org/002rjbv21",
+       "country_code": "CA",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I159129438",
+        "https://openalex.org/I49663120"
+       ]
+      }
+     ],
+     "countries": [
+      "CA"
+     ],
+     "is_corresponding": false,
+     "raw_author_name": "Philippe Mongeon",
+     "raw_affiliation_strings": [
+      "Centre interuniversitaire de recherche sur la science et la technologie (CIRST), Université du Québec à Montréal, Montréal, Canada",
+      "School of Information Management, Dalhousie University, Halifax, Canada"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0003-1021-059X",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Centre interuniversitaire de recherche sur la science et la technologie (CIRST), Université du Québec à Montréal, Montréal, Canada",
+       "institution_ids": [
+        "https://openalex.org/I159129438"
+       ]
+      },
+      {
+       "raw_affiliation_string": "School of Information Management, Dalhousie University, Halifax, Canada",
+       "institution_ids": [
+        "https://openalex.org/I129902397"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "last",
+     "author": {
+      "id": "https://openalex.org/A5014077037",
+      "display_name": "Stefanie Haustein",
+      "orcid": "https://orcid.org/0000-0003-0157-1430"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I153718931",
+       "display_name": "University of Ottawa",
+       "ror": "https://ror.org/03c4mmv16",
+       "country_code": "CA",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I153718931"
+       ]
+      },
+      {
+       "id": "https://openalex.org/I159129438",
+       "display_name": "Université du Québec à Montréal",
+       "ror": "https://ror.org/002rjbv21",
+       "country_code": "CA",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I159129438",
+        "https://openalex.org/I49663120"
+       ]
+      }
+     ],
+     "countries": [
+      "CA"
+     ],
+     "is_corresponding": false,
+     "raw_author_name": "Stefanie Haustein",
+     "raw_affiliation_strings": [
+      "Centre interuniversitaire de recherche sur la science et la technologie (CIRST), Université du Québec à Montréal, Montréal, Canada",
+      "Scholarly Communications Lab, Ottawa/Vancouver, Canada",
+      "School of Information Studies, University of Ottawa, Ottawa, Canada",
+      "Scholarly Communications Lab, Ottawa/Vancouver (Canada)",
+      "School of Information Studies, University of Ottawa, Ottawa (Canada)"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0003-0157-1430",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Centre interuniversitaire de recherche sur la science et la technologie (CIRST), Université du Québec à Montréal, Montréal, Canada",
+       "institution_ids": [
+        "https://openalex.org/I159129438"
+       ]
+      },
+      {
+       "raw_affiliation_string": "Scholarly Communications Lab, Ottawa/Vancouver, Canada",
+       "institution_ids": []
+      },
+      {
+       "raw_affiliation_string": "School of Information Studies, University of Ottawa, Ottawa, Canada",
+       "institution_ids": [
+        "https://openalex.org/I153718931"
+       ]
+      },
+      {
+       "raw_affiliation_string": "Scholarly Communications Lab, Ottawa/Vancouver (Canada)",
+       "institution_ids": []
+      },
+      {
+       "raw_affiliation_string": "School of Information Studies, University of Ottawa, Ottawa (Canada)",
+       "institution_ids": [
+        "https://openalex.org/I153718931"
+       ]
+      }
+     ]
+    }
+   ],
+   "institutions": [],
+   "countries_distinct_count": 2,
+   "institutions_distinct_count": 5,
+   "corresponding_author_ids": [],
+   "corresponding_institution_ids": [],
+   "apc_list": {
+    "value": 800,
+    "currency": "USD",
+    "value_usd": 800
+   },
+   "apc_paid": {
+    "value": 800,
+    "currency": "USD",
+    "value_usd": 800
+   },
+   "fwci": 18.9171,
+   "has_fulltext": true,
+   "cited_by_count": 107,
+   "citation_normalized_percentile": {
+    "value": 0.99593128,
+    "is_in_top_1_percent": true,
+    "is_in_top_10_percent": true
+   },
+   "cited_by_percentile_year": {
+    "min": 96,
+    "max": 100
+   },
+   "biblio": {
+    "volume": "4",
+    "issue": "4",
+    "first_page": "778",
+    "last_page": "799"
+   },
+   "is_retracted": false,
+   "is_paratext": false,
+   "is_xpac": false,
+   "primary_topic": {
+    "id": "https://openalex.org/T10102",
+    "display_name": "scientometrics and bibliometrics research",
+    "score": 0.9994000196456909,
+    "subfield": {
+     "id": "https://openalex.org/subfields/1804",
+     "display_name": "Statistics, Probability and Uncertainty"
+    },
+    "field": {
+     "id": "https://openalex.org/fields/18",
+     "display_name": "Decision Sciences"
+    },
+    "domain": {
+     "id": "https://openalex.org/domains/2",
+     "display_name": "Social Sciences"
+    }
+   },
+   "topics": [
+    {
+     "id": "https://openalex.org/T10102",
+     "display_name": "scientometrics and bibliometrics research",
+     "score": 0.9994000196456909,
+     "subfield": {
+      "id": "https://openalex.org/subfields/1804",
+      "display_name": "Statistics, Probability and Uncertainty"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/18",
+      "display_name": "Decision Sciences"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/2",
+      "display_name": "Social Sciences"
+     }
+    },
+    {
+     "id": "https://openalex.org/T13607",
+     "display_name": "Academic Publishing and Open Access",
+     "score": 0.9868999719619751,
+     "subfield": {
+      "id": "https://openalex.org/subfields/1802",
+      "display_name": "Information Systems and Management"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/18",
+      "display_name": "Decision Sciences"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/2",
+      "display_name": "Social Sciences"
+     }
+    },
+    {
+     "id": "https://openalex.org/T11903",
+     "display_name": "Private Equity and Venture Capital",
+     "score": 0.92330002784729,
+     "subfield": {
+      "id": "https://openalex.org/subfields/1402",
+      "display_name": "Accounting"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/14",
+      "display_name": "Business, Management and Accounting"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/2",
+      "display_name": "Social Sciences"
+     }
+    }
+   ],
+   "keywords": [
+    {
+     "id": "https://openalex.org/keywords/revenue",
+     "display_name": "Revenue",
+     "score": 0.7439056038856506
+    },
+    {
+     "id": "https://openalex.org/keywords/publication",
+     "display_name": "Publication",
+     "score": 0.5962687730789185
+    },
+    {
+     "id": "https://openalex.org/keywords/publishing",
+     "display_name": "Publishing",
+     "score": 0.5875521302223206
+    },
+    {
+     "id": "https://openalex.org/keywords/oligopoly",
+     "display_name": "Oligopoly",
+     "score": 0.5056085586547852
+    },
+    {
+     "id": "https://openalex.org/keywords/library-science",
+     "display_name": "Library science",
+     "score": 0.44174474477767944
+    },
+    {
+     "id": "https://openalex.org/keywords/the-internet",
+     "display_name": "The Internet",
+     "score": 0.42796581983566284
+    },
+    {
+     "id": "https://openalex.org/keywords/economics",
+     "display_name": "Economics",
+     "score": 0.3934621810913086
+    },
+    {
+     "id": "https://openalex.org/keywords/business",
+     "display_name": "Business",
+     "score": 0.2975740134716034
+    },
+    {
+     "id": "https://openalex.org/keywords/political-science",
+     "display_name": "Political science",
+     "score": 0.2696361541748047
+    },
+    {
+     "id": "https://openalex.org/keywords/advertising",
+     "display_name": "Advertising",
+     "score": 0.2581062316894531
+    },
+    {
+     "id": "https://openalex.org/keywords/computer-science",
+     "display_name": "Computer science",
+     "score": 0.22885003685951233
+    },
+    {
+     "id": "https://openalex.org/keywords/mathematical-economics",
+     "display_name": "Mathematical economics",
+     "score": 0.18220317363739014
+    },
+    {
+     "id": "https://openalex.org/keywords/finance",
+     "display_name": "Finance",
+     "score": 0.17330679297447205
+    },
+    {
+     "id": "https://openalex.org/keywords/world-wide-web",
+     "display_name": "World Wide Web",
+     "score": 0.16078263521194458
+    },
+    {
+     "id": "https://openalex.org/keywords/law",
+     "display_name": "Law",
+     "score": 0.1447300910949707
+    }
+   ],
+   "concepts": [
+    {
+     "id": "https://openalex.org/C195487862",
+     "wikidata": "https://www.wikidata.org/wiki/Q850210",
+     "display_name": "Revenue",
+     "level": 2,
+     "score": 0.7439056038856506
+    },
+    {
+     "id": "https://openalex.org/C41458344",
+     "wikidata": "https://www.wikidata.org/wiki/Q732577",
+     "display_name": "Publication",
+     "level": 2,
+     "score": 0.5962687730789185
+    },
+    {
+     "id": "https://openalex.org/C151719136",
+     "wikidata": "https://www.wikidata.org/wiki/Q3972943",
+     "display_name": "Publishing",
+     "level": 2,
+     "score": 0.5875521302223206
+    },
+    {
+     "id": "https://openalex.org/C121398111",
+     "wikidata": "https://www.wikidata.org/wiki/Q103639",
+     "display_name": "Oligopoly",
+     "level": 3,
+     "score": 0.5056085586547852
+    },
+    {
+     "id": "https://openalex.org/C161191863",
+     "wikidata": "https://www.wikidata.org/wiki/Q199655",
+     "display_name": "Library science",
+     "level": 1,
+     "score": 0.44174474477767944
+    },
+    {
+     "id": "https://openalex.org/C110875604",
+     "wikidata": "https://www.wikidata.org/wiki/Q75",
+     "display_name": "The Internet",
+     "level": 2,
+     "score": 0.42796581983566284
+    },
+    {
+     "id": "https://openalex.org/C162324750",
+     "wikidata": "https://www.wikidata.org/wiki/Q8134",
+     "display_name": "Economics",
+     "level": 0,
+     "score": 0.3934621810913086
+    },
+    {
+     "id": "https://openalex.org/C144133560",
+     "wikidata": "https://www.wikidata.org/wiki/Q4830453",
+     "display_name": "Business",
+     "level": 0,
+     "score": 0.2975740134716034
+    },
+    {
+     "id": "https://openalex.org/C17744445",
+     "wikidata": "https://www.wikidata.org/wiki/Q36442",
+     "display_name": "Political science",
+     "level": 0,
+     "score": 0.2696361541748047
+    },
+    {
+     "id": "https://openalex.org/C112698675",
+     "wikidata": "https://www.wikidata.org/wiki/Q37038",
+     "display_name": "Advertising",
+     "level": 1,
+     "score": 0.2581062316894531
+    },
+    {
+     "id": "https://openalex.org/C41008148",
+     "wikidata": "https://www.wikidata.org/wiki/Q21198",
+     "display_name": "Computer science",
+     "level": 0,
+     "score": 0.22885003685951233
+    },
+    {
+     "id": "https://openalex.org/C144237770",
+     "wikidata": "https://www.wikidata.org/wiki/Q747534",
+     "display_name": "Mathematical economics",
+     "level": 1,
+     "score": 0.18220317363739014
+    },
+    {
+     "id": "https://openalex.org/C10138342",
+     "wikidata": "https://www.wikidata.org/wiki/Q43015",
+     "display_name": "Finance",
+     "level": 1,
+     "score": 0.17330679297447205
+    },
+    {
+     "id": "https://openalex.org/C136764020",
+     "wikidata": "https://www.wikidata.org/wiki/Q466",
+     "display_name": "World Wide Web",
+     "level": 1,
+     "score": 0.16078263521194458
+    },
+    {
+     "id": "https://openalex.org/C199539241",
+     "wikidata": "https://www.wikidata.org/wiki/Q7748",
+     "display_name": "Law",
+     "level": 1,
+     "score": 0.1447300910949707
+    },
+    {
+     "id": "https://openalex.org/C16520705",
+     "wikidata": "https://www.wikidata.org/wiki/Q601799",
+     "display_name": "Cournot competition",
+     "level": 2,
+     "score": 0.0
+    }
+   ],
+   "mesh": [],
+   "locations_count": 5,
+   "locations": [
+    {
+     "id": "doi:10.1162/qss_a_00272",
+     "is_oa": true,
+     "landing_page_url": "https://doi.org/10.1162/qss_a_00272",
+     "pdf_url": "https://direct.mit.edu/qss/article-pdf/doi/10.1162/qss_a_00272/2172290/qss_a_00272.pdf",
+     "source": {
+      "id": "https://openalex.org/S4210195326",
+      "display_name": "Quantitative Science Studies",
+      "issn_l": "2641-3337",
+      "issn": [
+       "2641-3337"
+      ],
+      "is_oa": true,
+      "is_in_doaj": true,
+      "is_core": true,
+      "host_organization": "https://openalex.org/P4310315718",
+      "host_organization_name": "The MIT Press",
+      "host_organization_lineage": [
+       "https://openalex.org/P4310315718",
+       "https://openalex.org/P4310316440"
+      ],
+      "host_organization_lineage_names": [
+       "The MIT Press",
+       "Massachusetts Institute of Technology"
+      ],
+      "type": "journal"
+     },
+     "license": "cc-by",
+     "license_id": "https://openalex.org/licenses/cc-by",
+     "version": "publishedVersion",
+     "is_accepted": true,
+     "is_published": true,
+     "raw_source_name": "Quantitative Science Studies",
+     "raw_type": "journal-article"
+    },
+    {
+     "id": "pmh:oai:refubium.fu-berlin.de:fub188/43194",
+     "is_oa": true,
+     "landing_page_url": "https://refubium.fu-berlin.de/handle/fub188/43194",
+     "pdf_url": "https://refubium.fu-berlin.de/bitstream/fub188/43194/1/qss_a_00272.pdf",
+     "source": {
+      "id": "https://openalex.org/S4306402444",
+      "display_name": "Refubium (Universitätsbibliothek der Freien Universität Berlin)",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "host_organization": "https://openalex.org/I75951250",
+      "host_organization_name": "Freie Universität Berlin",
+      "host_organization_lineage": [
+       "https://openalex.org/I75951250"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": "cc-by",
+     "license_id": "https://openalex.org/licenses/cc-by",
+     "version": "submittedVersion",
+     "is_accepted": false,
+     "is_published": false,
+     "raw_source_name": "",
+     "raw_type": "doc-type:article"
+    },
+    {
+     "id": "pmh:oai:doaj.org/article:c70158b004e9457a81cb37c84dce0646",
+     "is_oa": false,
+     "landing_page_url": "https://doaj.org/article/c70158b004e9457a81cb37c84dce0646",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S4306401280",
+      "display_name": "DOAJ (DOAJ: Directory of Open Access Journals)",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "host_organization": null,
+      "host_organization_name": null,
+      "host_organization_lineage": [],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": null,
+     "license_id": null,
+     "version": "submittedVersion",
+     "is_accepted": false,
+     "is_published": false,
+     "raw_source_name": "Quantitative Science Studies, Vol 4, Iss 4 (2024)",
+     "raw_type": "article"
+    },
+    {
+     "id": "pmh:oai:papyrus.bib.umontreal.ca:1866/32063",
+     "is_oa": true,
+     "landing_page_url": "http://hdl.handle.net/1866/32063",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S4306402422",
+      "display_name": "Papyrus : Institutional Repository (Université de Montréal)",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "host_organization": "https://openalex.org/I70931966",
+      "host_organization_name": "Université de Montréal",
+      "host_organization_lineage": [
+       "https://openalex.org/I70931966"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": "cc-by",
+     "license_id": "https://openalex.org/licenses/cc-by",
+     "version": "submittedVersion",
+     "is_accepted": false,
+     "is_published": false,
+     "raw_source_name": "",
+     "raw_type": "journal article"
+    },
+    {
+     "id": "doi:10.17169/refubium-42910",
+     "is_oa": true,
+     "landing_page_url": "https://doi.org/10.17169/refubium-42910",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S7407052913",
+      "display_name": "Universitätsbibliothek der FU Berlin Hochschulschriftenstelle u. Dokumentenserver",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "host_organization": null,
+      "host_organization_name": null,
+      "host_organization_lineage": [],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": "cc-by",
+     "license_id": "https://openalex.org/licenses/cc-by",
+     "version": null,
+     "is_accepted": false,
+     "is_published": null,
+     "raw_source_name": null,
+     "raw_type": "article-journal"
+    }
+   ],
+   "best_oa_location": {
+    "id": "doi:10.1162/qss_a_00272",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1162/qss_a_00272",
+    "pdf_url": "https://direct.mit.edu/qss/article-pdf/doi/10.1162/qss_a_00272/2172290/qss_a_00272.pdf",
+    "source": {
+     "id": "https://openalex.org/S4210195326",
+     "display_name": "Quantitative Science Studies",
+     "issn_l": "2641-3337",
+     "issn": [
+      "2641-3337"
+     ],
+     "is_oa": true,
+     "is_in_doaj": true,
+     "is_core": true,
+     "host_organization": "https://openalex.org/P4310315718",
+     "host_organization_name": "The MIT Press",
+     "host_organization_lineage": [
+      "https://openalex.org/P4310315718",
+      "https://openalex.org/P4310316440"
+     ],
+     "host_organization_lineage_names": [
+      "The MIT Press",
+      "Massachusetts Institute of Technology"
+     ],
+     "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Quantitative Science Studies",
+    "raw_type": "journal-article"
+   },
+   "sustainable_development_goals": [
+    {
+     "score": 0.5099999904632568,
+     "display_name": "Partnerships for the goals",
+     "id": "https://metadata.un.org/sdg/17"
+    }
+   ],
+   "awards": [],
+   "funders": [],
+   "has_content": {
+    "pdf": true,
+    "grobid_xml": true
+   },
+   "content_urls": {
+    "pdf": "https://content.openalex.org/works/W4388465513.pdf",
+    "grobid_xml": "https://content.openalex.org/works/W4388465513.grobid-xml"
+   },
+   "referenced_works_count": 60,
+   "referenced_works": [
+    "https://openalex.org/W1550064549",
+    "https://openalex.org/W1655306493",
+    "https://openalex.org/W1767272795",
+    "https://openalex.org/W1944943415",
+    "https://openalex.org/W2058954808",
+    "https://openalex.org/W2070382614",
+    "https://openalex.org/W2087931041",
+    "https://openalex.org/W2090174702",
+    "https://openalex.org/W2099094735",
+    "https://openalex.org/W2103021099",
+    "https://openalex.org/W2217039833",
+    "https://openalex.org/W2299516731",
+    "https://openalex.org/W2441943932",
+    "https://openalex.org/W2498021002",
+    "https://openalex.org/W2517030160",
+    "https://openalex.org/W2520991028",
+    "https://openalex.org/W2571558254",
+    "https://openalex.org/W2605919033",
+    "https://openalex.org/W2738688602",
+    "https://openalex.org/W2741809807",
+    "https://openalex.org/W2772997750",
+    "https://openalex.org/W2809615178",
+    "https://openalex.org/W2895404127",
+    "https://openalex.org/W2917492883",
+    "https://openalex.org/W2937202521",
+    "https://openalex.org/W2944695068",
+    "https://openalex.org/W2994890955",
+    "https://openalex.org/W2995742707",
+    "https://openalex.org/W3000186871",
+    "https://openalex.org/W3008231817",
+    "https://openalex.org/W3010324060",
+    "https://openalex.org/W3033361750",
+    "https://openalex.org/W3092602406",
+    "https://openalex.org/W3093855513",
+    "https://openalex.org/W3110014401",
+    "https://openalex.org/W3120523561",
+    "https://openalex.org/W3167630218",
+    "https://openalex.org/W3178786088",
+    "https://openalex.org/W3194405851",
+    "https://openalex.org/W3194696510",
+    "https://openalex.org/W3204012633",
+    "https://openalex.org/W3205714341",
+    "https://openalex.org/W3208865143",
+    "https://openalex.org/W3210386238",
+    "https://openalex.org/W3211328320",
+    "https://openalex.org/W4221006456",
+    "https://openalex.org/W4232875366",
+    "https://openalex.org/W4281630983",
+    "https://openalex.org/W4289516081",
+    "https://openalex.org/W4297608185",
+    "https://openalex.org/W4306993085",
+    "https://openalex.org/W4311844276",
+    "https://openalex.org/W4388459903",
+    "https://openalex.org/W4393753964",
+    "https://openalex.org/W4394444953",
+    "https://openalex.org/W6858206845",
+    "https://openalex.org/W6894250423",
+    "https://openalex.org/W6908517863",
+    "https://openalex.org/W6912818192",
+    "https://openalex.org/W6949746931"
+   ],
+   "related_works": [
+    "https://openalex.org/W4249566367",
+    "https://openalex.org/W2530948548",
+    "https://openalex.org/W4312385560",
+    "https://openalex.org/W2353413375",
+    "https://openalex.org/W4389458176",
+    "https://openalex.org/W2767328025",
+    "https://openalex.org/W2766983675",
+    "https://openalex.org/W3003596244",
+    "https://openalex.org/W2528406606",
+    "https://openalex.org/W4389458088"
+   ],
+   "abstract_inverted_index": {
+    "Abstract": [
+     0
+    ],
+    "We": [
+     1
+    ],
+    "aim": [
+     2
+    ],
+    "to": [
+     3,
+     14,
+     79,
+     89
+    ],
+    "estimate": [
+     4,
+     69
+    ],
+    "the": [
+     5,
+     23,
+     63,
+     104,
+     110
+    ],
+    "total": [
+     6
+    ],
+    "amount": [
+     7
+    ],
+    "of": [
+     8,
+     140
+    ],
+    "article": [
+     9
+    ],
+    "processing": [
+     10
+    ],
+    "charges": [
+     11
+    ],
+    "(APCs)": [
+     12
+    ],
+    "paid": [
+     13,
+     73
+    ],
+    "publish": [
+     15
+    ],
+    "open": [
+     16,
+     55
+    ],
+    "access": [
+     17
+    ],
+    "(OA)": [
+     18
+    ],
+    "in": [
+     19,
+     76,
+     100
+    ],
+    "journals": [
+     20
+    ],
+    "controlled": [
+     21
+    ],
+    "by": [
+     22,
+     118
+    ],
+    "five": [
+     24,
+     105
+    ],
+    "large": [
+     25
+    ],
+    "commercial": [
+     26
+    ],
+    "publishers": [
+     27,
+     81
+    ],
+    "(Elsevier,": [
+     28
+    ],
+    "Sage,": [
+     29
+    ],
+    "Springer": [
+     30,
+     107
+    ],
+    "Nature,": [
+     31
+    ],
+    "Taylor": [
+     32,
+     125
+    ],
+    "&": [
+     33,
+     126
+    ],
+    "Francis,": [
+     34
+    ],
+    "and": [
+     35,
+     39,
+     50,
+     58,
+     92,
+     130,
+     136,
+     147
+    ],
+    "Wiley)": [
+     36
+    ],
+    "between": [
+     37,
+     158
+    ],
+    "2015": [
+     38
+    ],
+    "2018.": [
+     40
+    ],
+    "Using": [
+     41
+    ],
+    "publication": [
+     42,
+     77
+    ],
+    "data": [
+     43,
+     56
+    ],
+    "from": [
+     44,
+     48,
+     54,
+     82,
+     85,
+     113,
+     144
+    ],
+    "WoS,": [
+     45
+    ],
+    "OA": [
+     46,
+     87,
+     99,
+     114,
+     153
+    ],
+    "status": [
+     47
+    ],
+    "Unpaywall,": [
+     49
+    ],
+    "annual": [
+     51
+    ],
+    "APC": [
+     52,
+     142
+    ],
+    "prices": [
+     53
+    ],
+    "sets": [
+     57
+    ],
+    "historical": [
+     59
+    ],
+    "fees": [
+     60,
+     78,
+     146
+    ],
+    "retrieved": [
+     61
+    ],
+    "via": [
+     62
+    ],
+    "Internet": [
+     64
+    ],
+    "Archive": [
+     65
+    ],
+    "Wayback": [
+     66
+    ],
+    "Machine,": [
+     67
+    ],
+    "we": [
+     68
+    ],
+    "that": [
+     70
+    ],
+    "globally": [
+     71
+    ],
+    "authors": [
+     72
+    ],
+    "$1.06": [
+     74
+    ],
+    "billion": [
+     75
+    ],
+    "these": [
+     80
+    ],
+    "2015–2018.": [
+     83
+    ],
+    "Revenue": [
+     84
+    ],
+    "gold": [
+     86
+    ],
+    "amounted": [
+     88
+    ],
+    "$612.5": [
+     90
+    ],
+    "million,": [
+     91
+    ],
+    "$448.3": [
+     93
+    ],
+    "million": [
+     94
+    ],
+    "was": [
+     95
+    ],
+    "obtained": [
+     96
+    ],
+    "for": [
+     97
+    ],
+    "publishing": [
+     98
+    ],
+    "hybrid": [
+     101,
+     145
+    ],
+    "journals.": [
+     102
+    ],
+    "Among": [
+     103
+    ],
+    "publishers,": [
+     106
+    ],
+    "Nature": [
+     108
+    ],
+    "made": [
+     109
+    ],
+    "most": [
+     111,
+     139
+    ],
+    "revenue": [
+     112,
+     143
+    ],
+    "($589.7": [
+     115
+    ],
+    "million),": [
+     116,
+     121,
+     124,
+     129
+    ],
+    "followed": [
+     117
+    ],
+    "Elsevier": [
+     119,
+     135
+    ],
+    "($221.4": [
+     120
+    ],
+    "Wiley": [
+     122,
+     137
+    ],
+    "($114.3": [
+     123
+    ],
+    "Francis": [
+     127
+    ],
+    "($76.8": [
+     128
+    ],
+    "Sage": [
+     131
+    ],
+    "($31.6": [
+     132
+    ],
+    "million).": [
+     133
+    ],
+    "With": [
+     134
+    ],
+    "making": [
+     138
+    ],
+    "their": [
+     141
+    ],
+    "others": [
+     148
+    ],
+    "focusing": [
+     149
+    ],
+    "on": [
+     150
+    ],
+    "gold,": [
+     151
+    ],
+    "different": [
+     152
+    ],
+    "strategies": [
+     154
+    ],
+    "could": [
+     155
+    ],
+    "be": [
+     156
+    ],
+    "observed": [
+     157
+    ],
+    "publishers.": [
+     159
+    ]
+   },
+   "counts_by_year": [
+    {
+     "year": 2026,
+     "cited_by_count": 23
+    },
+    {
+     "year": 2025,
+     "cited_by_count": 48
+    },
+    {
+     "year": 2024,
+     "cited_by_count": 33
+    },
+    {
+     "year": 2023,
+     "cited_by_count": 3
+    }
+   ],
+   "updated_date": "2026-08-21T09:56:20.448147",
+   "created_date": "2025-10-10T00:00:00"
+  },
+  {
+   "id": "https://openalex.org/W4390674594",
+   "doi": "https://doi.org/10.1007/s11192-023-04894-0",
+   "title": "Open access research outputs receive more diverse citations",
+   "display_name": "Open access research outputs receive more diverse citations",
+   "publication_year": 2024,
+   "publication_date": "2024-01-08",
+   "ids": {
+    "openalex": "https://openalex.org/W4390674594",
+    "doi": "https://doi.org/10.1007/s11192-023-04894-0"
+   },
+   "language": "en",
+   "primary_location": {
+    "id": "doi:10.1007/s11192-023-04894-0",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1007/s11192-023-04894-0",
+    "pdf_url": "https://link.springer.com/content/pdf/10.1007/s11192-023-04894-0.pdf",
+    "source": {
+     "id": "https://openalex.org/S148561398",
+     "display_name": "Scientometrics",
+     "issn_l": "0138-9130",
+     "issn": [
+      "0138-9130",
+      "1588-2861"
+     ],
+     "is_oa": false,
+     "is_in_doaj": false,
+     "is_core": true,
+     "host_organization": "https://openalex.org/P4310320108",
+     "host_organization_name": "Springer Nature (Netherlands)",
+     "host_organization_lineage": [
+      "https://openalex.org/P4310320108",
+      "https://openalex.org/P4310319965"
+     ],
+     "host_organization_lineage_names": [
+      "Springer Nature (Netherlands)",
+      "Springer Nature"
+     ],
+     "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Scientometrics",
+    "raw_type": "journal-article"
+   },
+   "type": "article",
+   "indexed_in": [
+    "crossref"
+   ],
+   "open_access": {
+    "is_oa": true,
+    "oa_status": "hybrid",
+    "oa_url": "https://link.springer.com/content/pdf/10.1007/s11192-023-04894-0.pdf",
+    "any_repository_has_fulltext": true
+   },
+   "authorships": [
+    {
+     "author_position": "first",
+     "author": {
+      "id": "https://openalex.org/A5090536127",
+      "display_name": "Chun‐Kai Huang",
+      "orcid": "https://orcid.org/0000-0002-9656-5932"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I205640436",
+       "display_name": "Curtin University",
+       "ror": "https://ror.org/02n415q13",
+       "country_code": "AU",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I205640436"
+       ]
+      }
+     ],
+     "countries": [
+      "AU"
+     ],
+     "is_corresponding": true,
+     "raw_author_name": "Chun-Kai Huang",
+     "raw_affiliation_strings": [
+      "Centre for Culture and Technology, Curtin University, Bentley, WA, Australia"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0002-9656-5932",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Centre for Culture and Technology, Curtin University, Bentley, WA, Australia",
+       "institution_ids": [
+        "https://openalex.org/I205640436"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5048552040",
+      "display_name": "Cameron Neylon",
+      "orcid": "https://orcid.org/0000-0002-0068-716X"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I205640436",
+       "display_name": "Curtin University",
+       "ror": "https://ror.org/02n415q13",
+       "country_code": "AU",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I205640436"
+       ]
+      }
+     ],
+     "countries": [
+      "AU"
+     ],
+     "is_corresponding": false,
+     "raw_author_name": "Cameron Neylon",
+     "raw_affiliation_strings": [
+      "Centre for Culture and Technology, Curtin University, Bentley, WA, Australia"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0002-0068-716X",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Centre for Culture and Technology, Curtin University, Bentley, WA, Australia",
+       "institution_ids": [
+        "https://openalex.org/I205640436"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5013301732",
+      "display_name": "Lucy Montgomery",
+      "orcid": "https://orcid.org/0000-0001-6551-8140"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I205640436",
+       "display_name": "Curtin University",
+       "ror": "https://ror.org/02n415q13",
+       "country_code": "AU",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I205640436"
+       ]
+      }
+     ],
+     "countries": [
+      "AU"
+     ],
+     "is_corresponding": false,
+     "raw_author_name": "Lucy Montgomery",
+     "raw_affiliation_strings": [
+      "Centre for Culture and Technology, Curtin University, Bentley, WA, Australia"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0001-6551-8140",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Centre for Culture and Technology, Curtin University, Bentley, WA, Australia",
+       "institution_ids": [
+        "https://openalex.org/I205640436"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5071633579",
+      "display_name": "Richard Hosking",
+      "orcid": "https://orcid.org/0000-0001-8288-5241"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I205640436",
+       "display_name": "Curtin University",
+       "ror": "https://ror.org/02n415q13",
+       "country_code": "AU",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I205640436"
+       ]
+      }
+     ],
+     "countries": [
+      "AU"
+     ],
+     "is_corresponding": false,
+     "raw_author_name": "Richard Hosking",
+     "raw_affiliation_strings": [
+      "Centre for Culture and Technology, Curtin University, Bentley, WA, Australia"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0001-8288-5241",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Centre for Culture and Technology, Curtin University, Bentley, WA, Australia",
+       "institution_ids": [
+        "https://openalex.org/I205640436"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5070201494",
+      "display_name": "James P. Diprose",
+      "orcid": "https://orcid.org/0000-0002-5094-3571"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I205640436",
+       "display_name": "Curtin University",
+       "ror": "https://ror.org/02n415q13",
+       "country_code": "AU",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I205640436"
+       ]
+      }
+     ],
+     "countries": [
+      "AU"
+     ],
+     "is_corresponding": false,
+     "raw_author_name": "James P. Diprose",
+     "raw_affiliation_strings": [
+      "Centre for Culture and Technology, Curtin University, Bentley, WA, Australia"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0002-5094-3571",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Centre for Culture and Technology, Curtin University, Bentley, WA, Australia",
+       "institution_ids": [
+        "https://openalex.org/I205640436"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "middle",
+     "author": {
+      "id": "https://openalex.org/A5058690346",
+      "display_name": "R.N. Handcock",
+      "orcid": "https://orcid.org/0000-0001-5903-6620"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I205640436",
+       "display_name": "Curtin University",
+       "ror": "https://ror.org/02n415q13",
+       "country_code": "AU",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I205640436"
+       ]
+      }
+     ],
+     "countries": [
+      "AU"
+     ],
+     "is_corresponding": false,
+     "raw_author_name": "Rebecca N. Handcock",
+     "raw_affiliation_strings": [
+      "Curtin Institute for Data Science, Curtin University, Bentley, WA, Australia"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0001-5903-6620",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Curtin Institute for Data Science, Curtin University, Bentley, WA, Australia",
+       "institution_ids": [
+        "https://openalex.org/I205640436"
+       ]
+      }
+     ]
+    },
+    {
+     "author_position": "last",
+     "author": {
+      "id": "https://openalex.org/A5047192603",
+      "display_name": "Katie Wilson",
+      "orcid": "https://orcid.org/0000-0001-8705-1027"
+     },
+     "institutions": [
+      {
+       "id": "https://openalex.org/I41156924",
+       "display_name": "Victoria University of Wellington",
+       "ror": "https://ror.org/0040r6f76",
+       "country_code": "NZ",
+       "type": "education",
+       "lineage": [
+        "https://openalex.org/I41156924"
+       ]
+      }
+     ],
+     "countries": [
+      "NZ"
+     ],
+     "is_corresponding": false,
+     "raw_author_name": "Katie Wilson",
+     "raw_affiliation_strings": [
+      "Faculty of Education, Te Herenga Waka - Victoria University of Wellington, Wellington, New Zealand"
+     ],
+     "raw_orcid": "https://orcid.org/0000-0001-8705-1027",
+     "affiliations": [
+      {
+       "raw_affiliation_string": "Faculty of Education, Te Herenga Waka - Victoria University of Wellington, Wellington, New Zealand",
+       "institution_ids": [
+        "https://openalex.org/I41156924"
+       ]
+      }
+     ]
+    }
+   ],
+   "institutions": [],
+   "countries_distinct_count": 2,
+   "institutions_distinct_count": 2,
+   "corresponding_author_ids": [
+    "https://openalex.org/A5090536127"
+   ],
+   "corresponding_institution_ids": [
+    "https://openalex.org/I205640436"
+   ],
+   "apc_list": {
+    "value": 3190,
+    "currency": "USD",
+    "value_usd": 3190
+   },
+   "apc_paid": {
+    "value": 3190,
+    "currency": "USD",
+    "value_usd": 3190
+   },
+   "fwci": 28.9424,
+   "has_fulltext": true,
+   "cited_by_count": 95,
+   "citation_normalized_percentile": {
+    "value": 0.99781625,
+    "is_in_top_1_percent": true,
+    "is_in_top_10_percent": true
+   },
+   "cited_by_percentile_year": {
+    "min": 99,
+    "max": 100
+   },
+   "biblio": {
+    "volume": "129",
+    "issue": "2",
+    "first_page": "825",
+    "last_page": "845"
+   },
+   "is_retracted": false,
+   "is_paratext": false,
+   "is_xpac": false,
+   "primary_topic": {
+    "id": "https://openalex.org/T10102",
+    "display_name": "scientometrics and bibliometrics research",
+    "score": 0.9994000196456909,
+    "subfield": {
+     "id": "https://openalex.org/subfields/1804",
+     "display_name": "Statistics, Probability and Uncertainty"
+    },
+    "field": {
+     "id": "https://openalex.org/fields/18",
+     "display_name": "Decision Sciences"
+    },
+    "domain": {
+     "id": "https://openalex.org/domains/2",
+     "display_name": "Social Sciences"
+    }
+   },
+   "topics": [
+    {
+     "id": "https://openalex.org/T10102",
+     "display_name": "scientometrics and bibliometrics research",
+     "score": 0.9994000196456909,
+     "subfield": {
+      "id": "https://openalex.org/subfields/1804",
+      "display_name": "Statistics, Probability and Uncertainty"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/18",
+      "display_name": "Decision Sciences"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/2",
+      "display_name": "Social Sciences"
+     }
+    },
+    {
+     "id": "https://openalex.org/T10206",
+     "display_name": "Meta-analysis and systematic reviews",
+     "score": 0.9689000248908997,
+     "subfield": {
+      "id": "https://openalex.org/subfields/1804",
+      "display_name": "Statistics, Probability and Uncertainty"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/18",
+      "display_name": "Decision Sciences"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/2",
+      "display_name": "Social Sciences"
+     }
+    },
+    {
+     "id": "https://openalex.org/T13607",
+     "display_name": "Academic Publishing and Open Access",
+     "score": 0.9532999992370605,
+     "subfield": {
+      "id": "https://openalex.org/subfields/1802",
+      "display_name": "Information Systems and Management"
+     },
+     "field": {
+      "id": "https://openalex.org/fields/18",
+      "display_name": "Decision Sciences"
+     },
+     "domain": {
+      "id": "https://openalex.org/domains/2",
+      "display_name": "Social Sciences"
+     }
+    }
+   ],
+   "keywords": [
+    {
+     "id": "https://openalex.org/keywords/citation",
+     "display_name": "Citation",
+     "score": 0.7717480659484863
+    },
+    {
+     "id": "https://openalex.org/keywords/diversity",
+     "display_name": "Diversity (politics)",
+     "score": 0.6019110083580017
+    },
+    {
+     "id": "https://openalex.org/keywords/computer-science",
+     "display_name": "Computer science",
+     "score": 0.5089449882507324
+    },
+    {
+     "id": "https://openalex.org/keywords/perspective",
+     "display_name": "Perspective (graphical)",
+     "score": 0.47561436891555786
+    },
+    {
+     "id": "https://openalex.org/keywords/scale",
+     "display_name": "Scale (ratio)",
+     "score": 0.4534889757633209
+    },
+    {
+     "id": "https://openalex.org/keywords/free-access",
+     "display_name": "Free access",
+     "score": 0.44916966557502747
+    },
+    {
+     "id": "https://openalex.org/keywords/open-research",
+     "display_name": "Open research",
+     "score": 0.4437442421913147
+    },
+    {
+     "id": "https://openalex.org/keywords/scholarly-communication",
+     "display_name": "Scholarly communication",
+     "score": 0.44105154275894165
+    },
+    {
+     "id": "https://openalex.org/keywords/data-science",
+     "display_name": "Data science",
+     "score": 0.429451584815979
+    },
+    {
+     "id": "https://openalex.org/keywords/citation-impact",
+     "display_name": "Citation impact",
+     "score": 0.4281787574291229
+    },
+    {
+     "id": "https://openalex.org/keywords/association",
+     "display_name": "Association (psychology)",
+     "score": 0.4145069718360901
+    },
+    {
+     "id": "https://openalex.org/keywords/world-wide-web",
+     "display_name": "World Wide Web",
+     "score": 0.3914027810096741
+    },
+    {
+     "id": "https://openalex.org/keywords/knowledge-management",
+     "display_name": "Knowledge management",
+     "score": 0.3619706630706787
+    },
+    {
+     "id": "https://openalex.org/keywords/political-science",
+     "display_name": "Political science",
+     "score": 0.31340891122817993
+    },
+    {
+     "id": "https://openalex.org/keywords/psychology",
+     "display_name": "Psychology",
+     "score": 0.20142269134521484
+    },
+    {
+     "id": "https://openalex.org/keywords/geography",
+     "display_name": "Geography",
+     "score": 0.1613125205039978
+    },
+    {
+     "id": "https://openalex.org/keywords/publishing",
+     "display_name": "Publishing",
+     "score": 0.08185502886772156
+    }
+   ],
+   "concepts": [
+    {
+     "id": "https://openalex.org/C2778805511",
+     "wikidata": "https://www.wikidata.org/wiki/Q1713",
+     "display_name": "Citation",
+     "level": 2,
+     "score": 0.7717480659484863
+    },
+    {
+     "id": "https://openalex.org/C2781316041",
+     "wikidata": "https://www.wikidata.org/wiki/Q1230584",
+     "display_name": "Diversity (politics)",
+     "level": 2,
+     "score": 0.6019110083580017
+    },
+    {
+     "id": "https://openalex.org/C41008148",
+     "wikidata": "https://www.wikidata.org/wiki/Q21198",
+     "display_name": "Computer science",
+     "level": 0,
+     "score": 0.5089449882507324
+    },
+    {
+     "id": "https://openalex.org/C12713177",
+     "wikidata": "https://www.wikidata.org/wiki/Q1900281",
+     "display_name": "Perspective (graphical)",
+     "level": 2,
+     "score": 0.47561436891555786
+    },
+    {
+     "id": "https://openalex.org/C2778755073",
+     "wikidata": "https://www.wikidata.org/wiki/Q10858537",
+     "display_name": "Scale (ratio)",
+     "level": 2,
+     "score": 0.4534889757633209
+    },
+    {
+     "id": "https://openalex.org/C3020366717",
+     "wikidata": "https://www.wikidata.org/wiki/Q14075",
+     "display_name": "Free access",
+     "level": 2,
+     "score": 0.44916966557502747
+    },
+    {
+     "id": "https://openalex.org/C2778464652",
+     "wikidata": "https://www.wikidata.org/wiki/Q309849",
+     "display_name": "Open research",
+     "level": 2,
+     "score": 0.4437442421913147
+    },
+    {
+     "id": "https://openalex.org/C2777462167",
+     "wikidata": "https://www.wikidata.org/wiki/Q7432048",
+     "display_name": "Scholarly communication",
+     "level": 3,
+     "score": 0.44105154275894165
+    },
+    {
+     "id": "https://openalex.org/C2522767166",
+     "wikidata": "https://www.wikidata.org/wiki/Q2374463",
+     "display_name": "Data science",
+     "level": 1,
+     "score": 0.429451584815979
+    },
+    {
+     "id": "https://openalex.org/C2778793908",
+     "wikidata": "https://www.wikidata.org/wiki/Q5122404",
+     "display_name": "Citation impact",
+     "level": 3,
+     "score": 0.4281787574291229
+    },
+    {
+     "id": "https://openalex.org/C142853389",
+     "wikidata": "https://www.wikidata.org/wiki/Q744778",
+     "display_name": "Association (psychology)",
+     "level": 2,
+     "score": 0.4145069718360901
+    },
+    {
+     "id": "https://openalex.org/C136764020",
+     "wikidata": "https://www.wikidata.org/wiki/Q466",
+     "display_name": "World Wide Web",
+     "level": 1,
+     "score": 0.3914027810096741
+    },
+    {
+     "id": "https://openalex.org/C56739046",
+     "wikidata": "https://www.wikidata.org/wiki/Q192060",
+     "display_name": "Knowledge management",
+     "level": 1,
+     "score": 0.3619706630706787
+    },
+    {
+     "id": "https://openalex.org/C17744445",
+     "wikidata": "https://www.wikidata.org/wiki/Q36442",
+     "display_name": "Political science",
+     "level": 0,
+     "score": 0.31340891122817993
+    },
+    {
+     "id": "https://openalex.org/C15744967",
+     "wikidata": "https://www.wikidata.org/wiki/Q9418",
+     "display_name": "Psychology",
+     "level": 0,
+     "score": 0.20142269134521484
+    },
+    {
+     "id": "https://openalex.org/C205649164",
+     "wikidata": "https://www.wikidata.org/wiki/Q1071",
+     "display_name": "Geography",
+     "level": 0,
+     "score": 0.1613125205039978
+    },
+    {
+     "id": "https://openalex.org/C151719136",
+     "wikidata": "https://www.wikidata.org/wiki/Q3972943",
+     "display_name": "Publishing",
+     "level": 2,
+     "score": 0.08185502886772156
+    },
+    {
+     "id": "https://openalex.org/C58640448",
+     "wikidata": "https://www.wikidata.org/wiki/Q42515",
+     "display_name": "Cartography",
+     "level": 1,
+     "score": 0.0
+    },
+    {
+     "id": "https://openalex.org/C542102704",
+     "wikidata": "https://www.wikidata.org/wiki/Q183257",
+     "display_name": "Psychotherapist",
+     "level": 1,
+     "score": 0.0
+    },
+    {
+     "id": "https://openalex.org/C154945302",
+     "wikidata": "https://www.wikidata.org/wiki/Q11660",
+     "display_name": "Artificial intelligence",
+     "level": 1,
+     "score": 0.0
+    },
+    {
+     "id": "https://openalex.org/C199539241",
+     "wikidata": "https://www.wikidata.org/wiki/Q7748",
+     "display_name": "Law",
+     "level": 1,
+     "score": 0.0
+    }
+   ],
+   "mesh": [],
+   "locations_count": 3,
+   "locations": [
+    {
+     "id": "doi:10.1007/s11192-023-04894-0",
+     "is_oa": true,
+     "landing_page_url": "https://doi.org/10.1007/s11192-023-04894-0",
+     "pdf_url": "https://link.springer.com/content/pdf/10.1007/s11192-023-04894-0.pdf",
+     "source": {
+      "id": "https://openalex.org/S148561398",
+      "display_name": "Scientometrics",
+      "issn_l": "0138-9130",
+      "issn": [
+       "0138-9130",
+       "1588-2861"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "host_organization": "https://openalex.org/P4310320108",
+      "host_organization_name": "Springer Nature (Netherlands)",
+      "host_organization_lineage": [
+       "https://openalex.org/P4310320108",
+       "https://openalex.org/P4310319965"
+      ],
+      "host_organization_lineage_names": [
+       "Springer Nature (Netherlands)",
+       "Springer Nature"
+      ],
+      "type": "journal"
+     },
+     "license": "cc-by",
+     "license_id": "https://openalex.org/licenses/cc-by",
+     "version": "publishedVersion",
+     "is_accepted": true,
+     "is_published": true,
+     "raw_source_name": "Scientometrics",
+     "raw_type": "journal-article"
+    },
+    {
+     "id": "pmh:oai:RePEc:spr:scient:v:129:y:2024:i:2:d:10.1007_s11192-023-04894-0",
+     "is_oa": false,
+     "landing_page_url": "http://link.springer.com/10.1007/s11192-023-04894-0",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S4306401271",
+      "display_name": "RePEc: Research Papers in Economics",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "host_organization": "https://openalex.org/I77793887",
+      "host_organization_name": "Federal Reserve Bank of St. Louis",
+      "host_organization_lineage": [
+       "https://openalex.org/I77793887"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": null,
+     "license_id": null,
+     "version": "submittedVersion",
+     "is_accepted": false,
+     "is_published": false,
+     "raw_source_name": null,
+     "raw_type": "article"
+    },
+    {
+     "id": "pmh:oai:espace.curtin.edu.au:20.500.11937/97767",
+     "is_oa": true,
+     "landing_page_url": "http://hdl.handle.net/20.500.11937/97767",
+     "pdf_url": null,
+     "source": {
+      "id": "https://openalex.org/S4306401790",
+      "display_name": "eSpace (Curtin University)",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": false,
+      "host_organization": "https://openalex.org/I205640436",
+      "host_organization_name": "Curtin University",
+      "host_organization_lineage": [
+       "https://openalex.org/I205640436"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+     },
+     "license": "cc-by",
+     "license_id": "https://openalex.org/licenses/cc-by",
+     "version": "submittedVersion",
+     "is_accepted": false,
+     "is_published": false,
+     "raw_source_name": null,
+     "raw_type": "Journal Article"
+    }
+   ],
+   "best_oa_location": {
+    "id": "doi:10.1007/s11192-023-04894-0",
+    "is_oa": true,
+    "landing_page_url": "https://doi.org/10.1007/s11192-023-04894-0",
+    "pdf_url": "https://link.springer.com/content/pdf/10.1007/s11192-023-04894-0.pdf",
+    "source": {
+     "id": "https://openalex.org/S148561398",
+     "display_name": "Scientometrics",
+     "issn_l": "0138-9130",
+     "issn": [
+      "0138-9130",
+      "1588-2861"
+     ],
+     "is_oa": false,
+     "is_in_doaj": false,
+     "is_core": true,
+     "host_organization": "https://openalex.org/P4310320108",
+     "host_organization_name": "Springer Nature (Netherlands)",
+     "host_organization_lineage": [
+      "https://openalex.org/P4310320108",
+      "https://openalex.org/P4310319965"
+     ],
+     "host_organization_lineage_names": [
+      "Springer Nature (Netherlands)",
+      "Springer Nature"
+     ],
+     "type": "journal"
+    },
+    "license": "cc-by",
+    "license_id": "https://openalex.org/licenses/cc-by",
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Scientometrics",
+    "raw_type": "journal-article"
+   },
+   "sustainable_development_goals": [
+    {
+     "score": 0.41999998688697815,
+     "display_name": "Partnerships for the goals",
+     "id": "https://metadata.un.org/sdg/17"
+    }
+   ],
+   "awards": [],
+   "funders": [
+    {
+     "id": "https://openalex.org/F4320313262",
+     "display_name": "Arcadia Fund",
+     "ror": "https://ror.org/051z6e826"
+    },
+    {
+     "id": "https://openalex.org/F4320320987",
+     "display_name": "Curtin University of Technology",
+     "ror": "https://ror.org/02n415q13"
+    }
+   ],
+   "has_content": {
+    "pdf": true,
+    "grobid_xml": true
+   },
+   "content_urls": {
+    "pdf": "https://content.openalex.org/works/W4390674594.pdf",
+    "grobid_xml": "https://content.openalex.org/works/W4390674594.grobid-xml"
+   },
+   "referenced_works_count": 22,
+   "referenced_works": [
+    "https://openalex.org/W2160597895",
+    "https://openalex.org/W2257858171",
+    "https://openalex.org/W2322381034",
+    "https://openalex.org/W2604304190",
+    "https://openalex.org/W2660852010",
+    "https://openalex.org/W2741809807",
+    "https://openalex.org/W2798229828",
+    "https://openalex.org/W2892561184",
+    "https://openalex.org/W2953304564",
+    "https://openalex.org/W2962761131",
+    "https://openalex.org/W2997371893",
+    "https://openalex.org/W3002924435",
+    "https://openalex.org/W3035005301",
+    "https://openalex.org/W3093872269",
+    "https://openalex.org/W3154939278",
+    "https://openalex.org/W3208124108",
+    "https://openalex.org/W4281257753",
+    "https://openalex.org/W4320071046",
+    "https://openalex.org/W4321611368",
+    "https://openalex.org/W6894089923",
+    "https://openalex.org/W6912826513",
+    "https://openalex.org/W6969181382"
+   ],
+   "related_works": [
+    "https://openalex.org/W3017102189",
+    "https://openalex.org/W1551434206",
+    "https://openalex.org/W3161737000",
+    "https://openalex.org/W3024904294",
+    "https://openalex.org/W1566816009",
+    "https://openalex.org/W3177246040",
+    "https://openalex.org/W2783039089",
+    "https://openalex.org/W2620695543",
+    "https://openalex.org/W2241002068",
+    "https://openalex.org/W4386754830"
+   ],
+   "abstract_inverted_index": {
+    "Abstract": [
+     0
+    ],
+    "The": [
+     1
+    ],
+    "goal": [
+     2
+    ],
+    "of": [
+     3,
+     33,
+     36,
+     69,
+     101,
+     127,
+     137,
+     174,
+     184,
+     195,
+     198,
+     208,
+     214
+    ],
+    "open": [
+     4,
+     26,
+     74,
+     95,
+     122,
+     160,
+     185,
+     199
+    ],
+    "access": [
+     5,
+     27,
+     75,
+     96,
+     123,
+     149,
+     161,
+     200
+    ],
+    "is": [
+     6
+    ],
+    "to": [
+     7,
+     11,
+     72,
+     114,
+     171,
+     180
+    ],
+    "allow": [
+     8
+    ],
+    "more": [
+     9,
+     60
+    ],
+    "people": [
+     10
+    ],
+    "read": [
+     12
+    ],
+    "and": [
+     13,
+     25,
+     78,
+     98,
+     124,
+     135,
+     144,
+     210
+    ],
+    "use": [
+     14,
+     73,
+     207
+    ],
+    "research": [
+     15,
+     23,
+     76,
+     102,
+     209
+    ],
+    "outputs.": [
+     16
+    ],
+    "An": [
+     17
+    ],
+    "observed": [
+     18
+    ],
+    "association": [
+     19,
+     91,
+     120
+    ],
+    "between": [
+     20,
+     92,
+     121
+    ],
+    "highly": [
+     21
+    ],
+    "cited": [
+     22
+    ],
+    "outputs": [
+     24,
+     77,
+     103,
+     140
+    ],
+    "has": [
+     28
+    ],
+    "been": [
+     29
+    ],
+    "claimed": [
+     30
+    ],
+    "as": [
+     31,
+     55,
+     201
+    ],
+    "evidence": [
+     32,
+     191
+    ],
+    "increased": [
+     34,
+     125
+    ],
+    "usage": [
+     35,
+     53
+    ],
+    "the": [
+     37,
+     90,
+     99,
+     182,
+     196,
+     206,
+     212,
+     215
+    ],
+    "research,": [
+     38,
+     138
+    ],
+    "but": [
+     39
+    ],
+    "this": [
+     40,
+     86
+    ],
+    "remains": [
+     41
+    ],
+    "controversial.": [
+     42
+    ],
+    "A": [
+     43,
+     62
+    ],
+    "higher": [
+     44
+    ],
+    "citation": [
+     45,
+     128,
+     146
+    ],
+    "count": [
+     46
+    ],
+    "also": [
+     47,
+     188
+    ],
+    "does": [
+     48
+    ],
+    "not": [
+     49
+    ],
+    "necessarily": [
+     50
+    ],
+    "imply": [
+     51
+    ],
+    "wider": [
+     52
+    ],
+    "such": [
+     54
+    ],
+    "citations": [
+     56,
+     176
+    ],
+    "by": [
+     57,
+     88,
+     130
+    ],
+    "authors": [
+     58
+    ],
+    "from": [
+     59,
+     112,
+     219
+    ],
+    "places.": [
+     61
+    ],
+    "knowledge": [
+     63
+    ],
+    "gap": [
+     64,
+     87
+    ],
+    "exists": [
+     65
+    ],
+    "in": [
+     66
+    ],
+    "our": [
+     67,
+     172
+    ],
+    "understanding": [
+     68,
+     173
+    ],
+    "who": [
+     70
+    ],
+    "gets": [
+     71
+    ],
+    "where": [
+     79
+    ],
+    "users": [
+     80
+    ],
+    "are": [
+     81
+    ],
+    "located.": [
+     82
+    ],
+    "Here": [
+     83
+    ],
+    "we": [
+     84,
+     116
+    ],
+    "address": [
+     85
+    ],
+    "examining": [
+     89
+    ],
+    "an": [
+     93
+    ],
+    "output’s": [
+     94
+    ],
+    "status": [
+     97
+    ],
+    "diversity": [
+     100,
+     126,
+     213
+    ],
+    "that": [
+     104,
+     217
+    ],
+    "cite": [
+     105
+    ],
+    "it.": [
+     106,
+     220
+    ],
+    "By": [
+     107
+    ],
+    "analysing": [
+     108
+    ],
+    "large-scale": [
+     109
+    ],
+    "bibliographic": [
+     110
+    ],
+    "data": [
+     111
+    ],
+    "2010": [
+     113
+    ],
+    "2019,": [
+     115
+    ],
+    "found": [
+     117
+    ],
+    "a": [
+     118,
+     156,
+     168,
+     202
+    ],
+    "robust": [
+     119
+    ],
+    "sources": [
+     129
+    ],
+    "institutions,": [
+     131
+    ],
+    "countries,": [
+     132
+    ],
+    "subregions,": [
+     133
+    ],
+    "regions,": [
+     134
+    ],
+    "fields": [
+     136
+    ],
+    "across": [
+     139
+    ],
+    "with": [
+     141
+    ],
+    "both": [
+     142
+    ],
+    "high": [
+     143
+    ],
+    "medium–low": [
+     145
+    ],
+    "counts.": [
+     147
+    ],
+    "Open": [
+     148
+    ],
+    "through": [
+     150
+    ],
+    "disciplinary": [
+     151
+    ],
+    "or": [
+     152
+    ],
+    "institutional": [
+     153
+    ],
+    "repositories": [
+     154
+    ],
+    "showed": [
+     155
+    ],
+    "stronger": [
+     157
+    ],
+    "effect": [
+     158
+    ],
+    "than": [
+     159
+    ],
+    "via": [
+     162
+    ],
+    "publisher": [
+     163
+    ],
+    "platforms.": [
+     164
+    ],
+    "This": [
+     165
+    ],
+    "study": [
+     166
+    ],
+    "adds": [
+     167
+    ],
+    "new": [
+     169,
+     190
+    ],
+    "perspective": [
+     170
+    ],
+    "how": [
+     175
+    ],
+    "can": [
+     177
+    ],
+    "be": [
+     178
+    ],
+    "used": [
+     179
+    ],
+    "explore": [
+     181
+    ],
+    "effects": [
+     183
+    ],
+    "access.": [
+     186
+    ],
+    "It": [
+     187
+    ],
+    "provides": [
+     189
+    ],
+    "at": [
+     192
+    ],
+    "global": [
+     193
+    ],
+    "scale": [
+     194
+    ],
+    "benefits": [
+     197
+    ],
+    "mechanism": [
+     203
+    ],
+    "for": [
+     204
+    ],
+    "widening": [
+     205
+    ],
+    "increasing": [
+     211
+    ],
+    "communities": [
+     216
+    ],
+    "benefit": [
+     218
+    ]
+   },
+   "counts_by_year": [
+    {
+     "year": 2026,
+     "cited_by_count": 26
+    },
+    {
+     "year": 2025,
+     "cited_by_count": 42
+    },
+    {
+     "year": 2024,
+     "cited_by_count": 27
+    }
+   ],
+   "updated_date": "2026-08-21T09:56:20.448147",
+   "created_date": "2025-10-10T00:00:00"
+  }
+ ],
+ "group_by": []
+}
