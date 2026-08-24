@@ -31,12 +31,28 @@ class CrawlRequest(BaseModel):
     top_n: int = Field(default=20, ge=1, le=200)
     min_year: int | None = Field(default=None, ge=1500, le=2100)
     max_nodes: int = Field(default=500, ge=1, le=5000)
+    # Ausente: cria uma investigacao nova para esta busca. Informado: continua a que
+    # ja existe (por exemplo, aprofundando um grafo montado antes).
+    investigation_id: int | None = None
+    name: str | None = Field(default=None, max_length=200)
 
 
 class ExpandRequest(BaseModel):
     paper_id: str = Field(min_length=1)
     top_n: int = Field(default=20, ge=1, le=200)
     min_year: int | None = Field(default=None, ge=1500, le=2100)
+    investigation_id: int | None = None
+
+
+class InvestigationRename(BaseModel):
+    name: str = Field(min_length=1, max_length=200)
+
+    @field_validator("name")
+    @classmethod
+    def not_blank(cls, v: str) -> str:
+        if not v.strip():
+            raise ValueError("nome vazio")
+        return v.strip()
 
 
 class MarkRequest(BaseModel):

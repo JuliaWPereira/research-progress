@@ -1,4 +1,8 @@
-import sqlite3
+"""As tabelas GLOBAIS: o cache de artigos, as arestas e a triagem.
+
+O que e por investigacao (composicao, profundidade, expansoes) esta em
+test_investigations.py.
+"""
 
 import pytest
 
@@ -27,10 +31,12 @@ def paper(pid="W1", **over):
         "topics": ["Machine Translation", "Deep Learning"],
         "field": "Computer Science",
         "subfield": "Artificial Intelligence",
-        "depth": 0,
     }
     base.update(over)
     return base
+
+
+# ------------------------------------------------------------- cache de artigos
 
 
 def test_upsert_then_get_roundtrips_all_fields(conn):
@@ -40,6 +46,9 @@ def test_upsert_then_get_roundtrips_all_fields(conn):
 
     assert got["title"] == "Attention Is All You Need"
     assert got["year"] == 2017
+    assert got["doi"] == "10.1/abc"
+    assert got["venue"] == "NeurIPS"
+    assert got["oa_url"] == "https://example.org/paper.pdf"
     assert got["authors"] == [{"name": "A. Vaswani", "affiliation": "Google Brain"}]
     assert got["topics"] == ["Machine Translation", "Deep Learning"]
 
@@ -48,133 +57,109 @@ def test_get_paper_returns_none_when_absent(conn):
     assert db.get_paper(conn, "W404") is None
 
 
-def test_the_topic_hierarchy_is_stored_and_exposed_to_the_canvas(conn):
-    db.upsert_paper(conn, paper())
-
-    assert db.get_paper(conn, "W1")["field"] == "Computer Science"
-    assert db.get_paper(conn, "W1")["subfield"] == "Artificial Intelligence"
-
-    node = db.get_graph(conn)["nodes"][0]
-    assert node["field"] == "Computer Science"
-    assert node["subfield"] == "Artificial Intelligence"
-
-
-def test_an_unclassified_paper_is_stored_without_a_hierarchy(conn):
-    db.upsert_paper(conn, paper(field=None, subfield=None, topics=[]))
-
-    node = db.get_graph(conn)["nodes"][0]
-    assert node["field"] is None
-    assert node["subfield"] is None
-    assert node["topics"] == []
-
-
-def test_a_database_from_an_older_version_gains_the_new_columns(tmp_path):
-    """Um graph.db criado antes de campo/subcampo existirem deve continuar abrindo."""
-    path = tmp_path / "legacy.db"
-    old = sqlite3.connect(str(path))
-    old.executescript(
-        """
-        CREATE TABLE papers (
-            id TEXT PRIMARY KEY, doi TEXT, title TEXT NOT NULL, year INTEGER,
-            cited_by_count INTEGER NOT NULL DEFAULT 0, abstract TEXT, venue TEXT,
-            landing_url TEXT, oa_url TEXT, authors TEXT NOT NULL DEFAULT '[]',
-            topics TEXT NOT NULL DEFAULT '[]', depth INTEGER NOT NULL DEFAULT 0,
-            fetched_at TEXT NOT NULL);
-        INSERT INTO papers (id, title, fetched_at) VALUES ('Wold', 'Artigo antigo', '2020-01-01');
-        """
-    )
-    old.commit()
-    old.close()
-
-    conn = db.connect(path)
-
-    assert db.get_paper(conn, "Wold")["field"] is None
-    db.upsert_paper(conn, paper("Wnew"))
-    assert db.get_paper(conn, "Wnew")["field"] == "Computer Science"
-    conn.close()
-
-
 def test_upsert_twice_keeps_one_row_and_updates_it(conn):
     db.upsert_paper(conn, paper())
     db.upsert_paper(conn, paper(cited_by_count=250))
 
     assert db.get_paper(conn, "W1")["cited_by_count"] == 250
-    assert len(db.get_graph(conn)["nodes"]) == 1
+    assert conn.execute("SELECT COUNT(*) FROM papers").fetchone()[0] == 1
 
 
-def test_upsert_keeps_the_shallowest_depth(conn):
-    db.upsert_paper(conn, paper(depth=3))
-    db.upsert_paper(conn, paper(depth=1))
-    assert db.get_paper(conn, "W1")["depth"] == 1
+def test_a_later_fetch_without_an_abstract_does_not_erase_the_one_we_have(conn):
+    """O resumo pode ter vindo do Semantic Scholar depois de um custo real; uma
+    releitura do OpenAlex sem resumo nao pode apaga-lo."""
+    db.upsert_paper(conn, paper(abstract="resumo resgatado com esforco"))
 
-    db.upsert_paper(conn, paper(depth=5))
-    assert db.get_paper(conn, "W1")["depth"] == 1
+    db.upsert_paper(conn, paper(abstract=""))
+
+    assert db.get_paper(conn, "W1")["abstract"] == "resumo resgatado com esforco"
+
+
+def test_the_topic_hierarchy_is_stored(conn):
+    db.upsert_paper(conn, paper())
+
+    got = db.get_paper(conn, "W1")
+    assert got["field"] == "Computer Science"
+    assert got["subfield"] == "Artificial Intelligence"
+
+
+def test_an_unclassified_paper_is_stored_without_a_hierarchy(conn):
+    db.upsert_paper(conn, paper(field=None, subfield=None, topics=[]))
+
+    got = db.get_paper(conn, "W1")
+    assert got["field"] is None
+    assert got["subfield"] is None
+    assert got["topics"] == []
+
+
+def test_a_paper_with_no_title_gets_a_placeholder_instead_of_failing(conn):
+    db.upsert_paper(conn, paper(title=None))
+    assert db.get_paper(conn, "W1")["title"] == "(sem titulo)"
+
+
+def test_an_unscoped_paper_has_no_depth_or_coverage(conn):
+    """Sem investigacao, profundidade e cobertura nao existem: sao propriedades do
+    recorte, nao do artigo."""
+    db.upsert_paper(conn, paper())
+
+    got = db.get_paper(conn, "W1")
+    assert got["depth"] is None
+    assert got["total_citers"] is None
+
+
+# ---------------------------------------------------------------------- arestas
 
 
 def test_edges_are_deduplicated(conn):
-    db.upsert_paper(conn, paper("W1"))
-    db.upsert_paper(conn, paper("W2"))
-
     db.add_edge(conn, citing_id="W2", cited_id="W1")
     db.add_edge(conn, citing_id="W2", cited_id="W1")
 
-    assert db.get_graph(conn)["edges"] == [{"citing": "W2", "cited": "W1"}]
+    rows = conn.execute("SELECT citing_id, cited_id FROM edges").fetchall()
+    assert [tuple(r) for r in rows] == [("W2", "W1")]
 
 
-def test_node_is_frontier_until_expansion_is_recorded(conn):
-    db.upsert_paper(conn, paper("W1"))
-    assert db.get_graph(conn)["nodes"][0]["frontier"] is True
+def test_an_edge_is_directional(conn):
+    db.add_edge(conn, citing_id="W2", cited_id="W1")
+    db.add_edge(conn, citing_id="W1", cited_id="W2")
 
-    db.record_expansion(conn, "W1", top_n=20, min_year=None, total_citers=1240)
-
-    node = db.get_graph(conn)["nodes"][0]
-    assert node["frontier"] is False
-    assert node["total_citers"] == 1240
+    assert conn.execute("SELECT COUNT(*) FROM edges").fetchone()[0] == 2
 
 
-def test_expansion_is_specific_to_its_parameters(conn):
-    db.upsert_paper(conn, paper("W1"))
-    db.record_expansion(conn, "W1", top_n=20, min_year=None, total_citers=1240)
-
-    assert db.is_expanded(conn, "W1", top_n=20, min_year=None) is True
-    assert db.is_expanded(conn, "W1", top_n=50, min_year=None) is False
-    assert db.is_expanded(conn, "W1", top_n=20, min_year=2020) is False
+# -------------------------------------------------------------------- triagem
 
 
-def test_re_recording_an_unfiltered_expansion_updates_instead_of_duplicating(conn):
-    db.upsert_paper(conn, paper("W1"))
-    db.record_expansion(conn, "W1", top_n=20, min_year=None, total_citers=1240)
-    db.record_expansion(conn, "W1", top_n=20, min_year=None, total_citers=1300)
-
-    rows = conn.execute("SELECT total_citers FROM expansions WHERE paper_id='W1'").fetchall()
-    assert [r[0] for r in rows] == [1300]
+def test_mark_defaults_to_unread(conn):
+    db.upsert_paper(conn, paper())
+    assert db.get_paper(conn, "W1")["mark"] == "unread"
+    assert db.get_paper(conn, "W1")["note"] == ""
 
 
-def test_expanding_wider_supersedes_a_narrower_expansion(conn):
-    db.upsert_paper(conn, paper("W1"))
-    db.record_expansion(conn, "W1", top_n=50, min_year=None, total_citers=1240)
-
-    assert db.is_expanded(conn, "W1", top_n=20, min_year=None) is True
-
-
-def test_mark_defaults_to_unread_and_survives_being_set(conn):
-    db.upsert_paper(conn, paper("W1"))
-    assert db.get_graph(conn)["nodes"][0]["mark"] == "unread"
+def test_setting_a_mark_stores_the_status_and_the_note(conn):
+    db.upsert_paper(conn, paper())
 
     db.set_mark(conn, "W1", "interested", note="talvez o tema")
 
-    node = db.get_graph(conn)["nodes"][0]
-    assert node["mark"] == "interested"
-    assert db.get_paper(conn, "W1")["note"] == "talvez o tema"
+    got = db.get_paper(conn, "W1")
+    assert got["mark"] == "interested"
+    assert got["note"] == "talvez o tema"
 
 
 def test_mark_is_replaced_not_duplicated(conn):
-    db.upsert_paper(conn, paper("W1"))
+    db.upsert_paper(conn, paper())
     db.set_mark(conn, "W1", "interested", note="")
     db.set_mark(conn, "W1", "discarded", note="fora do escopo")
 
-    assert db.get_graph(conn)["nodes"][0]["mark"] == "discarded"
-    assert len(db.get_graph(conn)["nodes"]) == 1
+    assert db.get_paper(conn, "W1")["mark"] == "discarded"
+    assert conn.execute("SELECT COUNT(*) FROM marks").fetchone()[0] == 1
+
+
+def test_an_invalid_mark_is_refused(conn):
+    db.upsert_paper(conn, paper())
+    with pytest.raises(ValueError, match="invalida"):
+        db.set_mark(conn, "W1", "amei")
+
+
+# ------------------------------------------------------------------ persistencia
 
 
 def test_state_survives_reopening_the_database(tmp_path):
@@ -182,8 +167,12 @@ def test_state_survives_reopening_the_database(tmp_path):
     c1 = db.connect(path)
     db.upsert_paper(c1, paper("W1"))
     db.set_mark(c1, "W1", "read", note="lido")
+    inv = db.create_investigation(c1, "uma busca", "W1")
+    db.add_member(c1, inv, "W1", depth=0)
     c1.close()
 
     c2 = db.connect(path)
-    assert db.get_graph(c2)["nodes"][0]["mark"] == "read"
+    assert db.get_paper(c2, "W1")["mark"] == "read"
+    assert db.get_graph(c2, inv)["nodes"][0]["title"] == "Attention Is All You Need"
+    assert db.list_investigations(c2)[0]["name"] == "uma busca"
     c2.close()
