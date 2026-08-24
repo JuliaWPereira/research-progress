@@ -85,12 +85,13 @@ async def test_free_text_search_finds_a_well_known_paper(client):
 async def test_an_end_to_end_crawl_builds_a_connected_graph(tmp_path, client):
     conn = db.connect(tmp_path / "network.db")
     seed = (await client.resolve(SEED_DOI))["paper"]
+    inv = db.create_investigation(conn, name="rede", seed_id=seed["id"], top_n=5)
 
     result = await crawl_mod.crawl(
-        conn, client, seed, crawl_mod.CrawlParams(depth=2, top_n=5, max_nodes=60)
+        conn, client, inv, seed, crawl_mod.CrawlParams(depth=2, top_n=5, max_nodes=60)
     )
 
-    graph = db.get_graph(conn)
+    graph = db.get_graph(conn, inv)
     assert result["nodes"] > 5
     assert len(graph["nodes"]) == result["nodes"]
     assert graph["edges"], "o crawl nao criou nenhuma aresta"

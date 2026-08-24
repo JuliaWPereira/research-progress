@@ -48,209 +48,255 @@ def conn(tmp_path):
     c.close()
 
 
-def nodes_by_id(conn):
-    return {n["id"]: n for n in db.get_graph(conn)["nodes"]}
+@pytest.fixture
+def inv(conn):
+    """Toda travessia acontece dentro de uma investigacao."""
+    return db.create_investigation(conn, name="teste", seed_id="W1")
 
 
-def edge_set(conn):
-    return {(e["citing"], e["cited"]) for e in db.get_graph(conn)["edges"]}
+def nodes_by_id(conn, inv):
+    return {n["id"]: n for n in db.get_graph(conn, inv)["nodes"]}
+
+
+def edge_set(conn, inv):
+    return {(e["citing"], e["cited"]) for e in db.get_graph(conn, inv)["edges"]}
 
 
 # ------------------------------------------------------------------------ BFS
 
 
-async def test_depth_zero_stores_the_seed_and_asks_the_api_for_nothing(conn):
+async def test_depth_zero_stores_the_seed_and_asks_the_api_for_nothing(conn, inv):
     src = FakeSource({"W1": [p("W2")]})
 
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=0))
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=0))
 
-    assert list(nodes_by_id(conn)) == ["W1"]
+    assert list(nodes_by_id(conn, inv)) == ["W1"]
     assert src.calls == []
 
 
-async def test_depth_one_links_the_seed_to_everyone_who_cited_it(conn):
+async def test_depth_one_links_the_seed_to_everyone_who_cited_it(conn, inv):
     src = FakeSource({"W1": [p("W2"), p("W3")]})
 
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=1))
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=1))
 
-    assert set(nodes_by_id(conn)) == {"W1", "W2", "W3"}
+    assert set(nodes_by_id(conn, inv)) == {"W1", "W2", "W3"}
     # A aresta aponta do citante para o citado.
-    assert edge_set(conn) == {("W2", "W1"), ("W3", "W1")}
+    assert edge_set(conn, inv) == {("W2", "W1"), ("W3", "W1")}
 
 
-async def test_depth_two_follows_citations_of_citations(conn):
+async def test_depth_two_follows_citations_of_citations(conn, inv):
     src = FakeSource({"W1": [p("W2")], "W2": [p("W3")], "W3": [p("W4")]})
 
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=2))
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=2))
 
-    assert set(nodes_by_id(conn)) == {"W1", "W2", "W3"}
-    assert edge_set(conn) == {("W2", "W1"), ("W3", "W2")}
+    assert set(nodes_by_id(conn, inv)) == {"W1", "W2", "W3"}
+    assert edge_set(conn, inv) == {("W2", "W1"), ("W3", "W2")}
     assert "W3" not in src.calls  # W3 esta na profundidade limite, nao expande
 
 
-async def test_depth_is_the_shortest_path_from_the_seed(conn):
+async def test_depth_is_the_shortest_path_from_the_seed(conn, inv):
     # W3 cita o seminal diretamente E cita W2, que tambem cita o seminal.
     src = FakeSource({"W1": [p("W2"), p("W3")], "W2": [p("W3")], "W3": []})
 
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=2))
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=2))
 
-    depths = {i: n["depth"] for i, n in nodes_by_id(conn).items()}
+    depths = {i: n["depth"] for i, n in nodes_by_id(conn, inv).items()}
     assert depths == {"W1": 0, "W2": 1, "W3": 1}
 
 
-async def test_a_paper_reached_by_two_paths_is_one_node_with_both_edges(conn):
+async def test_a_paper_reached_by_two_paths_is_one_node_with_both_edges(conn, inv):
     src = FakeSource({"W1": [p("W2"), p("W3")], "W2": [p("W4")], "W3": [p("W4")], "W4": []})
 
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=2))
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=2))
 
-    assert len(nodes_by_id(conn)) == 4
-    assert ("W4", "W2") in edge_set(conn)
-    assert ("W4", "W3") in edge_set(conn)
+    assert len(nodes_by_id(conn, inv)) == 4
+    assert ("W4", "W2") in edge_set(conn, inv)
+    assert ("W4", "W3") in edge_set(conn, inv)
 
 
-async def test_a_citation_cycle_does_not_loop_forever(conn):
+async def test_a_citation_cycle_does_not_loop_forever(conn, inv):
     src = FakeSource({"W1": [p("W2")], "W2": [p("W1")]})
 
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=5))
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=5))
 
-    assert set(nodes_by_id(conn)) == {"W1", "W2"}
+    assert set(nodes_by_id(conn, inv)) == {"W1", "W2"}
     assert src.calls.count("W1") == 1
 
 
 # ------------------------------------------------------------------- orcamento
 
 
-async def test_top_n_keeps_only_the_most_cited_citers(conn):
+async def test_top_n_keeps_only_the_most_cited_citers(conn, inv):
     src = FakeSource(
         {"W1": [p("Wlow", cited=1), p("Whigh", cited=999), p("Wmid", cited=50)]}
     )
 
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=1, top_n=2))
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=1, top_n=2))
 
-    assert set(nodes_by_id(conn)) == {"W1", "Whigh", "Wmid"}
+    assert set(nodes_by_id(conn, inv)) == {"W1", "Whigh", "Wmid"}
 
 
-async def test_the_true_citer_count_is_recorded_even_when_top_n_truncates(conn):
+async def test_the_true_citer_count_is_recorded_even_when_top_n_truncates(conn, inv):
     src = FakeSource({"W1": [p(f"W{i}", cited=i) for i in range(10, 40)]})
 
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=1, top_n=3))
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=1, top_n=3))
 
-    seed = nodes_by_id(conn)["W1"]
+    seed = nodes_by_id(conn, inv)["W1"]
     assert seed["total_citers"] == 30
     assert seed["frontier"] is False
 
 
-async def test_max_nodes_stops_the_crawl(conn):
+async def test_max_nodes_stops_the_crawl(conn, inv):
     wide = {"W1": [p(f"A{i}", cited=i) for i in range(50)]}
     for i in range(50):
         wide[f"A{i}"] = [p(f"B{i}_{j}", cited=j) for j in range(50)]
     src = FakeSource(wide)
 
     result = await crawl.crawl(
-        conn, src, p("W1"), crawl.CrawlParams(depth=3, top_n=50, max_nodes=100)
+        conn, src, inv, p("W1"), crawl.CrawlParams(depth=3, top_n=50, max_nodes=100)
     )
 
-    assert len(nodes_by_id(conn)) <= 100
+    assert len(nodes_by_id(conn, inv)) <= 100
     assert result["truncated"] is True
 
 
-async def test_a_crawl_within_budget_is_not_reported_as_truncated(conn):
+async def test_a_crawl_within_budget_is_not_reported_as_truncated(conn, inv):
     src = FakeSource({"W1": [p("W2")], "W2": []})
 
-    result = await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=2, max_nodes=100))
+    result = await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=2, max_nodes=100))
 
     assert result["truncated"] is False
     assert result["nodes"] == 2
 
 
-async def test_min_year_excludes_older_citers(conn):
+async def test_min_year_excludes_older_citers(conn, inv):
     src = FakeSource({"W1": [p("Wold", year=2010), p("Wnew", year=2024)]})
 
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=1, min_year=2020))
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=1, min_year=2020))
 
-    assert set(nodes_by_id(conn)) == {"W1", "Wnew"}
+    assert set(nodes_by_id(conn, inv)) == {"W1", "Wnew"}
 
 
 # ----------------------------------------------------------------------- cache
 
 
-async def test_a_node_already_expanded_is_not_fetched_again(conn):
+async def test_a_node_already_expanded_is_not_fetched_again(conn, inv):
     src = FakeSource({"W1": [p("W2")], "W2": []})
     params = crawl.CrawlParams(depth=1, top_n=20)
 
-    await crawl.crawl(conn, src, p("W1"), params)
-    await crawl.crawl(conn, src, p("W1"), params)
+    await crawl.crawl(conn, src, inv, p("W1"), params)
+    await crawl.crawl(conn, src, inv, p("W1"), params)
 
     assert src.calls == ["W1"]
 
 
-async def test_asking_for_a_wider_top_n_does_refetch(conn):
+async def test_asking_for_a_wider_top_n_does_refetch(conn, inv):
     src = FakeSource({"W1": [p(f"W{i}", cited=i) for i in range(30)]})
 
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=1, top_n=5))
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=1, top_n=25))
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=1, top_n=5))
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=1, top_n=25))
 
     assert src.calls == ["W1", "W1"]
-    assert len(nodes_by_id(conn)) == 26
+    assert len(nodes_by_id(conn, inv)) == 26
+
+
+async def test_the_same_crawl_in_a_second_investigation_refetches(conn, inv):
+    """O cache de ARTIGOS e global, mas o de EXPANSOES nao pode ser: uma investigacao
+    nova precisa montar o proprio grafo, senao nasceria vazia."""
+    src = FakeSource({"W1": [p("W2")], "W2": []})
+    other = db.create_investigation(conn, name="outra", seed_id="W1")
+
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=1))
+    await crawl.crawl(conn, src, other, p("W1"), crawl.CrawlParams(depth=1))
+
+    assert src.calls == ["W1", "W1"]
+    assert set(nodes_by_id(conn, inv)) == {"W1", "W2"}
+    assert set(nodes_by_id(conn, other)) == {"W1", "W2"}
+
+
+async def test_expanding_in_one_investigation_does_not_grow_the_other(conn, inv):
+    src = FakeSource({"W1": [p("W2")], "W2": [p("W3")]})
+    other = db.create_investigation(conn, name="outra", seed_id="W1")
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=1))
+    await crawl.crawl(conn, src, other, p("W1"), crawl.CrawlParams(depth=1))
+
+    await crawl.expand(conn, src, inv, "W2", top_n=20, min_year=None)
+
+    assert set(nodes_by_id(conn, inv)) == {"W1", "W2", "W3"}
+    assert set(nodes_by_id(conn, other)) == {"W1", "W2"}
+    assert nodes_by_id(conn, other)["W2"]["frontier"] is True
+
+
+async def test_a_paper_already_in_the_cache_still_counts_as_new_here(conn, inv):
+    """`new_nodes` conta descobertas NESTA investigacao: um artigo que outra ja trouxe
+    continua sendo novidade aqui."""
+    src = FakeSource({"W1": [p("W2")], "W2": [p("W3")], "W3": []})
+    other = db.create_investigation(conn, name="outra", seed_id="W1")
+    await crawl.crawl(conn, src, other, p("W1"), crawl.CrawlParams(depth=2))  # cacheia W3
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=1))
+
+    result = await crawl.expand(conn, src, inv, "W2", top_n=20, min_year=None)
+
+    assert result["new_nodes"] == 1
 
 
 # -------------------------------------------------------------------- expansao
 
 
-async def test_expand_grows_one_node_by_exactly_one_level(conn):
+async def test_expand_grows_one_node_by_exactly_one_level(conn, inv):
     src = FakeSource({"W1": [p("W2")], "W2": [p("W3")], "W3": [p("W4")]})
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=1))
-    assert nodes_by_id(conn)["W2"]["frontier"] is True
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=1))
+    assert nodes_by_id(conn, inv)["W2"]["frontier"] is True
 
-    result = await crawl.expand(conn, src, "W2", top_n=20, min_year=None)
+    result = await crawl.expand(conn, src, inv, "W2", top_n=20, min_year=None)
 
-    assert set(nodes_by_id(conn)) == {"W1", "W2", "W3"}
-    assert nodes_by_id(conn)["W2"]["frontier"] is False
-    assert nodes_by_id(conn)["W3"]["depth"] == 2
+    assert set(nodes_by_id(conn, inv)) == {"W1", "W2", "W3"}
+    assert nodes_by_id(conn, inv)["W2"]["frontier"] is False
+    assert nodes_by_id(conn, inv)["W3"]["depth"] == 2
     assert result["new_nodes"] == 1
     assert "W3" not in src.calls  # expandiu W2, nao a vizinhanca inteira
 
 
-async def test_expanding_a_node_with_no_new_citers_reports_zero(conn):
+async def test_expanding_a_node_with_no_new_citers_reports_zero(conn, inv):
     src = FakeSource({"W1": [p("W2")], "W2": []})
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=1))
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=1))
 
-    result = await crawl.expand(conn, src, "W2", top_n=20, min_year=None)
+    result = await crawl.expand(conn, src, inv, "W2", top_n=20, min_year=None)
 
     assert result["new_nodes"] == 0
-    assert nodes_by_id(conn)["W2"]["frontier"] is False
+    assert nodes_by_id(conn, inv)["W2"]["frontier"] is False
 
 
-async def test_expanding_an_unknown_node_is_an_error(conn):
+async def test_expanding_an_unknown_node_is_an_error(conn, inv):
     src = FakeSource({})
     with pytest.raises(KeyError):
-        await crawl.expand(conn, src, "W404", top_n=20, min_year=None)
+        await crawl.expand(conn, src, inv, "W404", top_n=20, min_year=None)
 
 
 # ------------------------------------------------------------------- progresso
 
 
-async def test_progress_is_reported_as_the_crawl_advances(conn):
+async def test_progress_is_reported_as_the_crawl_advances(conn, inv):
     src = FakeSource({"W1": [p("W2"), p("W3")], "W2": [p("W4")], "W3": []})
     seen = []
 
     await crawl.crawl(
-        conn, src, p("W1"), crawl.CrawlParams(depth=2), on_progress=seen.append
+        conn, src, inv, p("W1"), crawl.CrawlParams(depth=2), on_progress=seen.append
     )
 
     assert seen, "o crawl nao reportou progresso nenhum"
     assert seen[-1]["done"] is True
-    assert seen[-1]["nodes"] == len(nodes_by_id(conn))
+    assert seen[-1]["nodes"] == len(nodes_by_id(conn, inv))
     assert all("expanded" in ev and "nodes" in ev for ev in seen)
 
 
-async def test_progress_titles_survive_non_ascii(conn):
+async def test_progress_titles_survive_non_ascii(conn, inv):
     # Titulos reais tem acentos, aspas curvas e travessoes; o console do Windows e
     # cp1252. O progresso nao pode quebrar por isso.
     weird = dict(p("W2"), title="Grafos e citações — análise “profunda”")
     src = FakeSource({"W1": [weird]})
     seen = []
 
-    await crawl.crawl(conn, src, p("W1"), crawl.CrawlParams(depth=1), on_progress=seen.append)
+    await crawl.crawl(conn, src, inv, p("W1"), crawl.CrawlParams(depth=1), on_progress=seen.append)
 
     assert any("citações" in (ev.get("title") or "") for ev in seen)

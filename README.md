@@ -42,6 +42,30 @@ Parâmetros do crawl inicial: profundidade, top-N por nó, ano mínimo e um teto
 Se o teto interromper a travessia, a barra de status avisa — um grafo cortado nunca é
 apresentado como se estivesse completo.
 
+## Investigações
+
+Cada busca é uma **investigação**: um seminal, seus parâmetros e o recorte de artigos
+que desceu dele. Isso existe porque o método acima pede comparar recortes — o mesmo
+seminal com e sem filtro de ano, ou dois seminais de subáreas diferentes.
+
+O que é fato fica compartilhado, o que é recorte fica separado:
+
+- `papers` e `edges` são **globais**. "Este artigo tem este título" e "X citou Y" não
+  dependem da pergunta, e o cache global é o que torna instantâneo alternar entre
+  investigações ou reaproveitar um artigo que já custou requisição.
+- `members` (quem pertence a quê, e a que profundidade) e `expansions` (o que já foi
+  escavado) são **por investigação**.
+- `marks` é **global** de propósito: "interessa" quer dizer "interessa para minha
+  tese", não "interessa para esta consulta". Reencontrar um artigo já marcado ao abrir
+  outra investigação é justamente o sinal de sobreposição entre as duas.
+
+**Migração automática.** Um `graph.db` de antes das investigações é convertido ao
+abrir, sem perder nada nem baixar nada de novo. Se ele acumulava várias buscas no
+mesmo grafo — o caso comum, e o incômodo que motivou isto —, as arestas dizem qual
+artigo desceu de qual seminal, então as buscas são reconstruídas: uma investigação por
+seminal, com as profundidades recalculadas. Um artigo alcançável pelos dois cones
+aparece nos dois.
+
 ## As quatro visões
 
 | Visão | Para quê |

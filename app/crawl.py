@@ -1,4 +1,4 @@
-"""Travessia do grafo de citacoes.
+"""Travessia do grafo de citacoes, sempre dentro de uma investigacao.
 
 BFS a partir do artigo seminal, sempre PARA FRENTE no tempo: os vizinhos de um no sao
 os artigos que o citaram. O orcamento (`depth`, `top_n`, `max_nodes`) existe porque o
@@ -8,6 +8,9 @@ traz o canone da area em vez de uma amostra arbitraria.
 
 `total_citers` guarda quantos citantes existiam de verdade, para a interface poder
 dizer "20 de 1240" e nunca fingir completude.
+
+Tudo aqui e escopado por `investigation_id`: os artigos vao para o cache global, mas a
+composicao do grafo e o que ja foi escavado pertencem a investigacao.
 """
 
 from __future__ import annotations
@@ -36,22 +39,29 @@ class CrawlParams:
 ProgressFn = Callable[[dict[str, Any]], None]
 
 
+def _store(conn, investigation_id: int, paper: dict, depth: int) -> None:
+    """O artigo vai para o cache global; a profundidade, para a investigacao."""
+    db.upsert_paper(conn, paper)
+    db.add_member(conn, investigation_id, paper["id"], depth)
+
+
 async def crawl(
     conn,
     source: CitationSource,
+    investigation_id: int,
     seed: dict,
     params: CrawlParams | None = None,
     on_progress: ProgressFn | None = None,
 ) -> dict:
-    """Percorre as citacoes a partir de `seed` e grava tudo no banco.
+    """Percorre as citacoes a partir de `seed` e grava tudo na investigacao.
 
     Devolve {"nodes", "edges", "expanded", "truncated"}. `truncated` diz se o
-    orcamento `max_nodes` interrompeu a travessia — a interface precisa disso para
-    nao apresentar um grafo cortado como se fosse completo."""
+    orcamento `max_nodes` interrompeu a travessia — a interface precisa disso para nao
+    apresentar um grafo cortado como se fosse completo."""
     params = params or CrawlParams()
 
     seed_id = seed["id"]
-    db.upsert_paper(conn, {**seed, "depth": 0})
+    _store(conn, investigation_id, seed, 0)
 
     seen: set[str] = {seed_id}
     queue: deque[tuple[str, int]] = deque([(seed_id, 0)])
@@ -81,10 +91,10 @@ async def crawl(
             truncated = True
             break
 
-        if db.is_expanded(conn, paper_id, params.top_n, params.min_year):
-            # Ja buscado antes com cobertura igual ou maior. Reaproveita o que esta no
-            # banco em vez de gastar uma requisicao.
-            for citer_id in _known_citers(conn, paper_id):
+        if db.is_expanded(conn, investigation_id, paper_id, params.top_n, params.min_year):
+            # Ja buscado nesta investigacao com cobertura igual ou maior. Reaproveita o
+            # que esta no banco em vez de gastar uma requisicao.
+            for citer_id in db.citers_in(conn, investigation_id, paper_id):
                 if citer_id not in seen:
                     seen.add(citer_id)
                     queue.append((citer_id, depth + 1))
@@ -94,11 +104,13 @@ async def crawl(
             paper_id, top_n=params.top_n, min_year=params.min_year, depth=depth + 1
         )
         expanded += 1
-        db.record_expansion(conn, paper_id, params.top_n, params.min_year, total)
+        db.record_expansion(
+            conn, investigation_id, paper_id, params.top_n, params.min_year, total
+        )
 
         for citer in citers:
             citer_id = citer["id"]
-            db.upsert_paper(conn, {**citer, "depth": depth + 1})
+            _store(conn, investigation_id, citer, depth + 1)
             db.add_edge(conn, citing_id=citer_id, cited_id=paper_id)
             new_edges += 1
             if citer_id not in seen:
@@ -123,34 +135,34 @@ async def crawl(
     return result
 
 
-def _known_citers(conn, paper_id: str) -> list[str]:
-    return [
-        r["citing_id"]
-        for r in conn.execute("SELECT citing_id FROM edges WHERE cited_id = ?", (paper_id,))
-    ]
-
-
 async def expand(
-    conn, source: CitationSource, paper_id: str, top_n: int, min_year: int | None
+    conn,
+    source: CitationSource,
+    investigation_id: int,
+    paper_id: str,
+    top_n: int,
+    min_year: int | None,
 ) -> dict:
     """Cresce UM no em UM nivel — o que o botao "expandir" no painel chama.
 
-    A profundidade dos novos nos e a do no expandido mais um; `db.upsert_paper` mantem
-    o menor valor caso um deles ja seja conhecido por um caminho mais curto."""
-    parent = db.get_paper(conn, paper_id)
+    A profundidade dos novos nos e a do no expandido mais um; `db.add_member` mantem o
+    menor valor caso um deles ja seja conhecido por um caminho mais curto."""
+    parent = db.get_paper(conn, paper_id, investigation_id=investigation_id)
     if parent is None:
-        raise KeyError(f"{paper_id} nao esta no grafo")
+        raise KeyError(f"{paper_id} nao esta nesta investigacao")
 
-    known = set(_known_citers(conn, paper_id))
+    known = set(db.citers_in(conn, investigation_id, paper_id))
     citers, total = await source.fetch_citers(
         paper_id, top_n=top_n, min_year=min_year, depth=parent["depth"] + 1
     )
-    db.record_expansion(conn, paper_id, top_n, min_year, total)
+    db.record_expansion(conn, investigation_id, paper_id, top_n, min_year, total)
 
     new_nodes = 0
     for citer in citers:
-        existed = db.get_paper(conn, citer["id"]) is not None
-        db.upsert_paper(conn, {**citer, "depth": parent["depth"] + 1})
+        # "Novo" quer dizer novo NESTA investigacao: o artigo pode ja estar no cache
+        # global por causa de outra, e ainda assim ser uma descoberta aqui.
+        existed = db.get_paper(conn, citer["id"], investigation_id=investigation_id) is not None
+        _store(conn, investigation_id, citer, parent["depth"] + 1)
         db.add_edge(conn, citing_id=citer["id"], cited_id=paper_id)
         if not existed:
             new_nodes += 1
