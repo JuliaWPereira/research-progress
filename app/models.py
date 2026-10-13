@@ -42,3 +42,7 @@ class ExpandRequest(BaseModel):
 class MarkRequest(BaseModel):
     status: MarkStatus
     note: str = Field(default="", max_length=4000)
+
+
+class ActiveSearchRequest(BaseModel):
+    id: str | None = None

@@ -37,3 +37,6 @@ graph.db
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Buscas salvas: um SQLite por busca, mais o ponteiro da busca aberta.
+searches/

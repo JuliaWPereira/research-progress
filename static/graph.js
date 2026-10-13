@@ -20,6 +20,11 @@
   let groupSlots = new Map(); // chave minuscula -> {label, color, shape, slot, count}
   let timeline = null; // geometria da linha do tempo, em coordenadas de modelo
   let relayoutTimer = null;
+  let crawling = false;
+  let searchList = { active: null, searches: [] };
+
+  const EMPTY_PANEL =
+    "Cole o artigo seminal acima e clique em Buscar. Cada busca fica salva na lista à esquerda.";
 
   /* ============================ escalas de cor ============================= */
 
@@ -1023,12 +1028,18 @@
   }
 
   async function reload() {
-    graph = await (await fetch("/api/graph")).json();
+    const [g] = await Promise.all([
+      fetch("/api/graph").then((r) => r.json()),
+      refreshSearches(),
+    ]);
+    graph = g;
     render();
   }
 
   async function runCrawl(id) {
     seedId = id;
+    crawling = true;
+    $("searches").classList.add("busy");
     $("seed-btn").disabled = true;
     status("percorrendo as citações…");
 
@@ -1042,6 +1053,9 @@
         const err = await res.json().catch(() => ({}));
         throw new Error(err.detail || `o servidor respondeu ${res.status}`);
       }
+      // A busca nova ja existe no servidor: aparece na lista enquanto percorre.
+      refreshSearches();
+      window.Panel.clear("Percorrendo as citações…");
 
       // SSE via fetch: precisamos de POST, o que EventSource nao permite.
       const reader = res.body.getReader();
@@ -1084,9 +1098,129 @@
     } catch (err) {
       status(err.message, "err");
     } finally {
+      crawling = false;
+      $("searches").classList.remove("busy");
       $("seed-btn").disabled = false;
+      refreshSearches();
     }
   }
+
+  /* =============================== buscas ================================ */
+
+  async function refreshSearches(data) {
+    try {
+      searchList = data || (await (await fetch("/api/searches")).json());
+    } catch (err) {
+      return; // a lista e acessoria; o grafo continua utilizavel sem ela
+    }
+    renderSearches();
+  }
+
+  function when(iso) {
+    const d = new Date(iso);
+    if (isNaN(d)) return "";
+    const day = d.toLocaleDateString("pt-BR", { day: "2-digit", month: "short" });
+    const time = d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+    return `${day.replace(".", "")} · ${time}`;
+  }
+
+  function renderSearches() {
+    const { active, searches } = searchList;
+    $("searches-empty").hidden = searches.length > 0;
+    $("searches-list").innerHTML = searches
+      .map((s) => {
+        const meta = [
+          s.crawling
+            ? '<span class="crawling">percorrendo…</span>'
+            : `${fmt.format(s.nodes)} artigos`,
+          s.interested ? `${fmt.format(s.interested)} interessam` : "",
+          when(s.created_at),
+        ].filter(Boolean);
+        const title = `${s.seed_title}${s.seed_year ? ` (${s.seed_year})` : ""}`;
+        return `<li class="${s.id === active ? "active" : ""}">
+          <button type="button" class="search-open" data-id="${escapeHtml(s.id)}"
+                  title="${escapeHtml(title)}"${s.id === active ? ' aria-current="true"' : ""}>
+            <span class="search-title">${escapeHtml(s.seed_title)}</span>
+            <span class="search-meta">${meta.join(" · ")}</span>
+          </button>
+          <button type="button" class="search-del" data-id="${escapeHtml(s.id)}"
+                  aria-label="apagar a busca ${escapeHtml(s.seed_title)}" title="apagar busca">×</button>
+        </li>`;
+      })
+      .join("");
+  }
+
+  async function setActive(id) {
+    const r = await fetch("/api/searches/active", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.detail || `o servidor respondeu ${r.status}`);
+    await refreshSearches(data);
+  }
+
+  // Mostra a busca ativa (ou o canvas vazio, se nenhuma).
+  async function showActive() {
+    await reload();
+    $("f-reset").click();
+    const seed = graph.nodes.find((n) => n.depth === 0) || graph.nodes[0];
+    seedId = seed ? seed.id : null;
+    if (seed) {
+      status(`${fmt.format(graph.nodes.length)} artigos — ${shortTitle(seed.title)}`);
+      window.Panel.clear("Clique num nó para ver autores, resumo e links.");
+    } else {
+      status("");
+      window.Panel.clear(EMPTY_PANEL);
+    }
+  }
+
+  function blockedByCrawl() {
+    if (crawling) status("espere o crawl terminar para trocar de busca", "warn");
+    return crawling;
+  }
+
+  $("searches-list").addEventListener("click", async (ev) => {
+    const btn = ev.target.closest("button[data-id]");
+    if (!btn || blockedByCrawl()) return;
+    const id = btn.dataset.id;
+    try {
+      if (btn.classList.contains("search-del")) {
+        const s = searchList.searches.find((x) => x.id === id);
+        const ok = window.confirm(
+          `Apagar a busca "${s ? s.seed_title : id}"?\n\n` +
+            "O grafo e as marcações dela serão apagados. Não dá para desfazer."
+        );
+        if (!ok) return;
+        const r = await fetch(`/api/searches/${encodeURIComponent(id)}`, { method: "DELETE" });
+        const data = await r.json();
+        if (!r.ok) throw new Error(data.detail || `o servidor respondeu ${r.status}`);
+        const wasActive = searchList.active === id;
+        await refreshSearches(data);
+        if (wasActive) await showActive();
+        status("busca apagada");
+      } else if (id !== searchList.active) {
+        await setActive(id);
+        await showActive();
+      }
+    } catch (err) {
+      status(err.message, "err");
+    }
+  });
+
+  $("new-search").addEventListener("click", async () => {
+    if (blockedByCrawl()) return;
+    try {
+      await setActive(null);
+      await showActive();
+      $("candidates").hidden = true;
+      $("seed-input").value = "";
+      $("seed-input").focus();
+    } catch (err) {
+      status(err.message, "err");
+    }
+  });
 
   /* ============================= candidatos ============================== */
 
@@ -1217,13 +1351,14 @@
       if (row) row.mark = mark;
       // Marcar nao deve reembaralhar o grafo debaixo do cursor; so refiltra.
       applyFilters({ relayout: false });
+      refreshSearches(); // contagem de "interessam" na lista
     },
     citerCount(id) {
       return graph.edges.filter((e) => e.cited === id).length;
     },
   };
 
-  // Retoma o grafo salvo: fechar o servidor e voltar nao perde nada.
+  // Retoma a busca que estava aberta: fechar o servidor e voltar nao perde nada.
   (async function boot() {
     await reload();
     if (graph.nodes.length) {

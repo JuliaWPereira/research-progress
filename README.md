@@ -7,19 +7,37 @@ tópicos, e onde você pode marcar o que interessa.
 
 ## Rodando
 
+Precisa do [uv](https://docs.astral.sh/uv/), que baixa o Python 3.12 sozinho (o
+`python3` do macOS é 3.9, abaixo do mínimo 3.11).
+
 ```bash
-python -m venv .venv
-.venv\Scripts\python.exe -m pip install -e ".[dev]"     # ou: pip install fastapi uvicorn httpx pydantic
-set OPENALEX_MAILTO=seu.email@exemplo.org                # entra no "polite pool" do OpenAlex
-.venv\Scripts\python.exe -m uvicorn app.main:app --reload
+make setup                                       # cria .venv e instala com extras de dev
+export OPENALEX_MAILTO=seu.email@exemplo.org     # entra no "polite pool" do OpenAlex
+make run                                         # ou: make run PORT=8001
 ```
 
-Abra <http://localhost:8000>. O grafo é gravado em `graph.db` ao lado do código:
-fechar o servidor e voltar depois retoma exatamente o que estava na tela.
+Abra <http://localhost:8000>. `make help` lista os outros alvos.
 
 Variáveis de ambiente: `OPENALEX_MAILTO` (recomendado — sem ele o OpenAlex aplica
-limites menores) e `GRAPH_DB` (caminho do banco, para manter grafos separados por
-investigação).
+limites menores) e `SEARCHES_DIR` (onde ficam as buscas salvas; padrão `searches/`).
+
+## Buscas salvas
+
+Cada artigo seminal que você busca vira uma **busca nova**, listada na coluna da
+esquerda com o número de artigos e quantos você marcou como "interessa". Clicar numa
+busca reabre o grafo dela exatamente como estava; **+ nova busca** limpa a tela para
+outro seminal sem perder nada; o **×** apaga a busca (pede confirmação).
+
+Cada busca é um arquivo SQLite próprio em `searches/`, e não uma tabela compartilhada,
+porque o nível de um artigo e as marcações dependem do seminal: o mesmo artigo pode
+estar no nível 1 de uma investigação e no 3 de outra, e "interessa" numa não implica
+"interessa" na outra. A busca aberta fica gravada em `searches/active`, então fechar o
+servidor e voltar retoma o que estava na tela.
+
+Quem tinha um `graph.db` de antes desta mudança encontra esse grafo na lista na
+primeira vez que sobe o servidor. Ele é copiado, nunca movido: o arquivo original
+fica intacto. Se ele acumulou vários seminais, o nome na lista diz isso ("Grafo
+antigo: … + 3 outros"). `GRAPH_DB` aponta para outro arquivo antigo, se for o caso.
 
 ## Por que não Google Scholar
 
@@ -99,8 +117,8 @@ grupo do próprio seminal, que nunca cai no cinza. O resto vira "outros".
 ## Testes
 
 ```bash
-.venv\Scripts\python.exe -m pytest              # unidade + rotas, tudo com fixtures
-.venv\Scripts\python.exe -m pytest -m network    # bate na API real; pega quebra de contrato
+make test            # unidade + rotas, tudo com fixtures
+make test-network    # bate na API real; pega quebra de contrato
 ```
 
 A suíte padrão não toca a rede. Os testes marcados `network` existem para avisar
@@ -113,10 +131,12 @@ descobrimos a cobertura parcial de resumos e a descontinuação de `cited_by_api
 app/openalex.py   cliente, resolução do input, busca de citantes, inversão do abstract
 app/s2.py         fallback de resumo (tolerante: qualquer falha devolve vazio)
 app/crawl.py      BFS com orçamento; expansão de um nó
-app/db.py         SQLite: papers, edges, expansions, marks
+app/db.py         SQLite: papers, edges, expansions, marks, meta
+app/searches.py   buscas salvas: um arquivo por busca, a ativa, importação do graph.db
 app/main.py       rotas + SSE de progresso
 static/graph.js   canvas, escalas de cor, filtros, os quatro layouts
 static/panel.js   painel de detalhes, triagem, botão de expandir
+Makefile          setup, run, testes
 ```
 
 ## Fora de escopo (por ora)
