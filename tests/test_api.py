@@ -17,16 +17,24 @@ def fixture(name):
 
 @pytest.fixture
 def client(tmp_path, monkeypatch):
-    monkeypatch.setenv("GRAPH_DB", str(tmp_path / "api.db"))
+    monkeypatch.setenv("SEARCHES_DIR", str(tmp_path / "searches"))
+    monkeypatch.setenv("GRAPH_DB", str(tmp_path / "nao-existe.db"))
     monkeypatch.setenv("OPENALEX_MAILTO", "test@example.org")
     app = main.create_app()
     with TestClient(app) as c:
         yield c
 
 
+def open_search(client, seed_id="W1", title="Seminal"):
+    """Cria e abre uma busca vazia, sem passar pelo crawl."""
+    store = client.app.state.searches
+    sid = store.create({"id": seed_id, "title": title, "year": 2015})
+    return sid, store.conn(sid)
+
+
 def seed_graph(client):
     """Popula o banco do app diretamente, sem passar pela API."""
-    conn = client.app.state.conn
+    _, conn = open_search(client)
     db.upsert_paper(
         conn,
         {
@@ -225,6 +233,7 @@ def test_paper_detail_carries_authors_links_abstract_and_topics(client):
 
 
 def test_paper_detail_404s_for_a_node_not_in_the_graph(client):
+    open_search(client)
     assert client.get("/api/paper/W404").status_code == 404
 
 
@@ -272,6 +281,7 @@ def test_an_invalid_mark_is_rejected(client):
 
 
 def test_marking_a_paper_outside_the_graph_is_a_404(client):
+    open_search(client)
     assert client.put("/api/paper/W404/mark", json={"status": "read"}).status_code == 404
 
 
@@ -295,7 +305,140 @@ def test_expand_grows_a_frontier_node(client):
 
 
 def test_expanding_a_node_outside_the_graph_is_a_404(client):
+    open_search(client)
     assert client.post("/api/expand", json={"paper_id": "W404"}).status_code == 404
+
+
+# -------------------------------------------------------------------- buscas
+
+
+def crawl(client, seed_id="W2741809807"):
+    with client.stream(
+        "POST", "/api/crawl", json={"seed_id": seed_id, "depth": 1, "top_n": 5}
+    ) as r:
+        assert r.status_code == 200
+        sid = r.headers["X-Search-Id"]
+        list(r.iter_lines())
+    return sid
+
+
+def mock_openalex():
+    respx.get(url__startswith="https://api.openalex.org/works/W2741809807").mock(
+        return_value=httpx.Response(200, json=fixture("work_seed.json"))
+    )
+    respx.get(url__startswith="https://api.openalex.org/works?").mock(
+        return_value=httpx.Response(200, json=fixture("citers_page.json"))
+    )
+
+
+def test_there_are_no_searches_at_first(client):
+    assert client.get("/api/searches").json() == {"active": None, "searches": []}
+
+
+@respx.mock
+def test_each_crawl_becomes_a_new_search_and_the_list_shows_it(client):
+    mock_openalex()
+
+    first = crawl(client)
+    second = crawl(client)
+
+    listing = client.get("/api/searches").json()
+    assert first != second
+    assert listing["active"] == second
+    assert [s["id"] for s in listing["searches"]] == [second, first]  # mais nova primeiro
+    newest = listing["searches"][0]
+    assert newest["seed_id"] == "W2741809807"
+    assert newest["seed_title"]
+    assert newest["nodes"] == 6
+    assert newest["params"]["top_n"] == 5
+    assert newest["crawling"] is False
+
+
+@respx.mock
+def test_searches_are_isolated_graphs(client):
+    mock_openalex()
+    old = crawl(client)
+    client.put("/api/paper/W3137875885/mark", json={"status": "interested"})
+
+    open_search(client, seed_id="W9", title="Outro seminal")
+
+    assert client.get("/api/graph").json() == {"nodes": [], "edges": []}
+    client.put("/api/searches/active", json={"id": old})
+    graph = client.get("/api/graph").json()
+    assert len(graph["nodes"]) == 6
+    assert next(n for n in graph["nodes"] if n["id"] == "W3137875885")["mark"] == "interested"
+    assert client.get("/api/searches").json()["searches"][1]["interested"] == 1
+
+
+def test_closing_the_active_search_empties_the_canvas_without_deleting_it(client):
+    seed_graph(client)
+
+    r = client.put("/api/searches/active", json={"id": None})
+
+    assert r.json()["active"] is None
+    assert len(r.json()["searches"]) == 1
+    assert client.get("/api/graph").json() == {"nodes": [], "edges": []}
+    assert client.get("/api/paper/W1").status_code == 409
+
+
+def test_opening_an_unknown_search_is_a_404(client):
+    assert client.put("/api/searches/active", json={"id": "nao-existe"}).status_code == 404
+    assert client.put("/api/searches/active", json={"id": "../../etc"}).status_code == 404
+
+
+def test_the_open_search_survives_a_restart(tmp_path, monkeypatch, client):
+    sid, _ = open_search(client)
+
+    with TestClient(main.create_app()) as again:
+        assert again.get("/api/searches").json()["active"] == sid
+
+
+def test_deleting_a_search_removes_its_file(client, tmp_path):
+    sid, _ = open_search(client)
+    keep, _ = open_search(client, seed_id="W2", title="Fica")
+
+    r = client.delete(f"/api/searches/{sid}")
+
+    assert r.status_code == 200
+    assert [s["id"] for s in r.json()["searches"]] == [keep]
+    assert not (tmp_path / "searches" / f"{sid}.db").exists()
+    assert client.delete(f"/api/searches/{sid}").status_code == 404
+
+
+def test_deleting_the_active_search_leaves_none_open(client):
+    sid, _ = open_search(client)
+
+    assert client.delete(f"/api/searches/{sid}").json()["active"] is None
+
+
+def test_a_search_being_crawled_cannot_be_deleted(client):
+    sid, _ = open_search(client)
+    client.app.state.searches.busy.add(sid)
+
+    assert client.delete(f"/api/searches/{sid}").status_code == 409
+
+
+def test_the_old_single_graph_db_is_imported_once_as_a_search(tmp_path, monkeypatch):
+    legacy = tmp_path / "graph.db"
+    conn = db.connect(legacy)
+    db.upsert_paper(conn, {"id": "W1", "title": "Seminal antigo", "year": 2016, "depth": 0})
+    db.upsert_paper(conn, {"id": "W2", "title": "Citante", "year": 2020, "depth": 1})
+    db.set_mark(conn, "W2", "interested")
+    conn.close()
+    monkeypatch.setenv("SEARCHES_DIR", str(tmp_path / "searches"))
+    monkeypatch.setenv("GRAPH_DB", str(legacy))
+
+    with TestClient(main.create_app()) as c:
+        listing = c.get("/api/searches").json()
+        (only,) = listing["searches"]
+        assert listing["active"] == only["id"]
+        assert only["seed_title"] == "Seminal antigo"
+        assert only["nodes"] == 2 and only["interested"] == 1
+        c.delete(f"/api/searches/{only['id']}")
+
+    assert legacy.exists()  # copiado, nunca movido
+    with TestClient(main.create_app()) as c:
+        assert c.get("/api/searches").json()["searches"] == []  # nao reimporta
 
 
 # ------------------------------------------------------------------- interface
@@ -307,3 +450,18 @@ def test_the_root_url_serves_the_page(client):
     assert r.status_code == 200
     assert "text/html" in r.headers["content-type"]
     assert "cytoscape" in r.text.lower()
+
+
+def test_an_old_graph_with_several_seeds_is_labelled_as_mixed(tmp_path, monkeypatch):
+    legacy = tmp_path / "graph.db"
+    conn = db.connect(legacy)
+    db.upsert_paper(conn, {"id": "W1", "title": "Muito citado", "cited_by_count": 900, "depth": 0})
+    db.upsert_paper(conn, {"id": "W2", "title": "Outro seminal", "cited_by_count": 10, "depth": 0})
+    conn.close()
+    monkeypatch.setenv("SEARCHES_DIR", str(tmp_path / "searches"))
+    monkeypatch.setenv("GRAPH_DB", str(legacy))
+
+    with TestClient(main.create_app()) as c:
+        (only,) = c.get("/api/searches").json()["searches"]
+
+    assert only["seed_title"] == "Grafo antigo: Muito citado + 1 outro"

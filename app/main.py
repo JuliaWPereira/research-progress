@@ -17,11 +17,21 @@ from fastapi.staticfiles import StaticFiles
 
 from app import crawl as crawl_mod
 from app import db, s2
-from app.models import CrawlRequest, ExpandRequest, MarkRequest, ResolveRequest
+from app.models import (
+    ActiveSearchRequest,
+    CrawlRequest,
+    ExpandRequest,
+    MarkRequest,
+    ResolveRequest,
+)
 from app.openalex import OpenAlexClient, OpenAlexError, PaperNotFound
+from app.searches import SearchBusy, Searches, SearchNotFound
 
-STATIC = Path(__file__).resolve().parent.parent / "static"
-DEFAULT_DB = Path(__file__).resolve().parent.parent / "graph.db"
+ROOT = Path(__file__).resolve().parent.parent
+STATIC = ROOT / "static"
+DEFAULT_SEARCHES = ROOT / "searches"
+# Antes das buscas salvas havia um banco so. Se ele existir, entra na lista uma vez.
+LEGACY_DB = ROOT / "graph.db"
 
 
 def create_app() -> FastAPI:
@@ -29,7 +39,8 @@ def create_app() -> FastAPI:
 
     @contextlib.asynccontextmanager
     async def lifespan(app: FastAPI):
-        app.state.conn = db.connect(os.environ.get("GRAPH_DB") or DEFAULT_DB)
+        app.state.searches = Searches(os.environ.get("SEARCHES_DIR") or DEFAULT_SEARCHES)
+        app.state.searches.import_legacy(os.environ.get("GRAPH_DB") or LEGACY_DB)
         app.state.oa = OpenAlexClient(
             mailto=os.environ.get("OPENALEX_MAILTO", "anonymous@example.org")
         )
@@ -37,14 +48,20 @@ def create_app() -> FastAPI:
             yield
         finally:
             await app.state.oa.aclose()
-            app.state.conn.close()
+            app.state.searches.close()
 
     app.router.lifespan_context = lifespan
 
     # ------------------------------------------------------------------ helpers
 
+    def searches(request: Request) -> Searches:
+        return request.app.state.searches
+
     def conn(request: Request):
-        return request.app.state.conn
+        """O banco da busca aberta. Sem busca aberta nao ha grafo para consultar."""
+        if (c := searches(request).current()) is None:
+            raise HTTPException(409, "nenhuma busca aberta")
+        return c
 
     def oa(request: Request) -> OpenAlexClient:
         return request.app.state.oa
@@ -76,7 +93,7 @@ def create_app() -> FastAPI:
 
         O crawl roda como task e empurra eventos numa fila; o gerador os repassa. Sem
         isso a pagina ficaria muda por dezenas de segundos."""
-        client, database = oa(request), conn(request)
+        client = oa(request)
         work = await client.get_work("openalex", body.seed_id)
         from app.openalex import normalize_work
 
@@ -87,6 +104,13 @@ def create_app() -> FastAPI:
             min_year=body.min_year,
             max_nodes=body.max_nodes,
         )
+
+        # Toda busca e uma busca nova, com arquivo proprio. O crawl guarda a conexao
+        # dela, entao trocar de busca no meio do caminho nao desvia a escrita.
+        store = searches(request)
+        sid = store.create(seed, body.model_dump(exclude={"seed_id"}))
+        database = store.conn(sid)
+        store.busy.add(sid)
 
         queue: asyncio.Queue[dict | None] = asyncio.Queue()
         loop = asyncio.get_running_loop()
@@ -99,6 +123,7 @@ def create_app() -> FastAPI:
             except Exception as exc:  # noqa: BLE001 - vai para a pagina como erro
                 queue.put_nowait({"done": True, "error": str(exc)})
             finally:
+                store.busy.discard(sid)
                 queue.put_nowait(None)
 
         task = loop.create_task(run())
@@ -114,7 +139,11 @@ def create_app() -> FastAPI:
         return StreamingResponse(
             events(),
             media_type="text/event-stream",
-            headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+            headers={
+                "Cache-Control": "no-cache",
+                "X-Accel-Buffering": "no",
+                "X-Search-Id": sid,
+            },
         )
 
     @app.post("/api/expand")
@@ -129,7 +158,37 @@ def create_app() -> FastAPI:
 
     @app.get("/api/graph")
     async def graph(request: Request):
-        return db.get_graph(conn(request))
+        current = searches(request).current()
+        return db.get_graph(current) if current else {"nodes": [], "edges": []}
+
+    # ----------------------------------------------------------------- buscas
+
+    def search_list(request: Request) -> dict:
+        store = searches(request)
+        return {"active": store.active, "searches": store.list()}
+
+    @app.get("/api/searches")
+    async def list_searches(request: Request):
+        return search_list(request)
+
+    @app.put("/api/searches/active")
+    async def open_search(body: ActiveSearchRequest, request: Request):
+        """Abre uma busca salva, ou fecha a atual com `id: null` ("nova busca")."""
+        try:
+            searches(request).set_active(body.id)
+        except SearchNotFound:
+            raise HTTPException(404, f"busca {body.id} nao existe") from None
+        return search_list(request)
+
+    @app.delete("/api/searches/{sid}")
+    async def delete_search(sid: str, request: Request):
+        try:
+            searches(request).delete(sid)
+        except SearchNotFound:
+            raise HTTPException(404, f"busca {sid} nao existe") from None
+        except SearchBusy:
+            raise HTTPException(409, "essa busca ainda esta sendo percorrida") from None
+        return search_list(request)
 
     @app.get("/api/paper/{paper_id}")
     async def paper(paper_id: str, request: Request):

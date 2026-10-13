@@ -60,6 +60,14 @@ CREATE TABLE IF NOT EXISTS marks (
     note        TEXT NOT NULL DEFAULT '',
     updated_at  TEXT NOT NULL
 );
+
+-- Uma busca por arquivo (ver app/searches.py); aqui fica o que a lista lateral
+-- mostra sem precisar varrer o grafo: seminal, parametros, data de criacao.
+-- Valores em JSON.
+CREATE TABLE IF NOT EXISTS meta (
+    key    TEXT PRIMARY KEY,
+    value  TEXT NOT NULL
+);
 """
 
 
@@ -256,6 +264,30 @@ def get_graph(conn: sqlite3.Connection) -> dict:
         )
     ]
     return {"nodes": nodes, "edges": edges}
+
+
+def set_meta(conn: sqlite3.Connection, **values) -> None:
+    conn.executemany(
+        "INSERT INTO meta (key, value) VALUES (?, ?) "
+        "ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+        [(k, json.dumps(v, ensure_ascii=False)) for k, v in values.items()],
+    )
+    conn.commit()
+
+
+def get_meta(conn: sqlite3.Connection) -> dict:
+    return {r["key"]: json.loads(r["value"]) for r in conn.execute("SELECT * FROM meta")}
+
+
+def summary(conn: sqlite3.Connection) -> dict:
+    """Contagens para a lista de buscas."""
+    row = conn.execute(
+        """
+        SELECT (SELECT COUNT(*) FROM papers)                              AS nodes,
+               (SELECT COUNT(*) FROM marks WHERE status = 'interested')   AS interested
+        """
+    ).fetchone()
+    return dict(row)
 
 
 def set_mark(conn: sqlite3.Connection, paper_id: str, status: str, note: str = "") -> None:

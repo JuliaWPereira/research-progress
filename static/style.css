@@ -140,6 +140,87 @@ button.small { padding: 4px 9px; font-size: 12px; margin-bottom: 2px; }
 
 main { flex: 1; display: flex; min-height: 0; }
 
+/* ------------------------------------------------------------------- buscas */
+
+.searches {
+  flex: 0 0 230px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--bg-raised);
+  border-right: 1px solid var(--line);
+}
+.searches-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 10px 8px 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.searches-head h2 {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
+.searches-head button.small { margin: 0; }
+.searches ul { flex: 1; margin: 0; padding: 4px 0; list-style: none; overflow-y: auto; }
+.searches li { position: relative; display: flex; }
+.searches.busy ul { opacity: .55; }
+.searches-empty { margin: 0; padding: 12px; font-size: 12.5px; color: var(--fg-faint); }
+
+.search-open {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 30px 8px 10px;
+  text-align: left;
+  font-weight: 400;
+  color: var(--fg-dim);
+  background: transparent;
+  border: none;
+  border-left: 2px solid transparent;
+  border-radius: 0;
+}
+.search-open:hover { color: var(--fg); background: var(--line-soft); filter: none; }
+.searches li.active .search-open {
+  color: var(--fg);
+  background: var(--bg);
+  border-left-color: var(--accent);
+}
+.search-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.35;
+}
+.search-meta { font-size: 11.5px; color: var(--fg-faint); }
+.search-meta .crawling { color: var(--gold); }
+
+.search-del {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 0 6px;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--fg-faint);
+  background: transparent;
+  border: none;
+  opacity: 0;
+}
+.searches li:hover .search-del,
+.search-del:focus-visible { opacity: 1; }
+.search-del:hover { color: var(--danger); filter: none; }
+
 .canvas-wrap { flex: 1; display: flex; flex-direction: column; min-width: 0; position: relative; }
 
 .filters {
@@ -368,5 +449,11 @@ main { flex: 1; display: flex; min-height: 0; }
 
 @media (max-width: 1000px) {
   main { flex-direction: column; }
+  .searches { flex: 0 0 auto; max-height: 24vh; border-right: none; border-bottom: 1px solid var(--line); }
   .panel { flex: 0 0 44%; border-left: none; border-top: 1px solid var(--line); }
+}
+
+/* Sem hover (toque), o botão de apagar fica sempre visível. */
+@media (hover: none) {
+  .search-del { opacity: 1; }
 }
